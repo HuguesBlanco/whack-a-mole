@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import Mole from './ui/Mole';
 
 function App(): React.JSX.Element {
