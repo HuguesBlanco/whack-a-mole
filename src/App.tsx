@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { decrementTimer, startGame } from './store/gameSlice';
+import { decrementTimer, incrementScore, startGame } from './store/gameSlice';
 import { AppDispatch, RootState } from './store/store';
 import Mole from './ui/Mole';
 
@@ -10,6 +10,10 @@ function App(): React.JSX.Element {
 
   const handleGameStart = (): void => {
     dispatch(startGame());
+  };
+
+  const score = (): void => {
+    dispatch(incrementScore());
   };
 
   useEffect(() => {
@@ -40,8 +44,8 @@ function App(): React.JSX.Element {
       {gameState.status === 'IN_PROGRESS' && (
         <div>
           <div>{gameState.score}</div>
-          <Mole isActive></Mole>
-          <Mole isActive={false}></Mole>
+          <Mole isActive onActiveClick={score}></Mole>
+          <Mole isActive={false} onActiveClick={score}></Mole>
         </div>
       )}
 

@@ -28,9 +28,12 @@ const gameSlice = createSlice({
         state.status = 'ENDED';
       }
     },
+    incrementScore(state) {
+      state.score += 1;
+    },
   },
 });
 
-export const { startGame, decrementTimer } = gameSlice.actions;
+export const { startGame, decrementTimer, incrementScore } = gameSlice.actions;
 
 export default gameSlice.reducer;
