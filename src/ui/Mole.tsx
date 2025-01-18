@@ -1,6 +1,6 @@
-import React from 'react';
-import moleDown from '../assets/hole-mole-down.png';
-import moleUp from '../assets/hole-mole-up.png';
+import React, { useState } from 'react';
+import moleDownImagePath from '../assets/hole-mole-down.png';
+import moleUpImagePath from '../assets/hole-mole-up.png';
 
 type MoleProps = {
   isUp: boolean;
@@ -8,14 +8,23 @@ type MoleProps = {
 };
 
 function Mole({ isUp, onMoleHit }: MoleProps): React.JSX.Element {
+  const [isHit, setIsHit] = useState(false);
+
+  const isMoleVisible = isUp && !isHit;
+
+  if (!isUp && isHit) {
+    setIsHit(false);
+  }
+
   return (
     <div>
       <img
-        src={isUp ? moleUp : moleDown}
-        alt={isUp ? 'Mole up in hole' : 'Mole down in hole'}
+        src={isMoleVisible ? moleUpImagePath : moleDownImagePath}
+        alt={isMoleVisible ? 'Mole up in hole' : 'Mole down in hole'}
         onClick={() => {
-          if (isUp) {
+          if (isMoleVisible) {
             onMoleHit();
+            setIsHit(true);
           }
         }}
       />
