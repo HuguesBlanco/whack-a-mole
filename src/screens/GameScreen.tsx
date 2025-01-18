@@ -14,17 +14,13 @@ function GameScreen(): React.JSX.Element {
   const molesGridData: MolesGridData = useMemo(generateMolesGridData, []);
 
   useEffect(() => {
-    if (gameState.status === 'IN_PROGRESS') {
-      const intervalId = setInterval(() => {
-        dispatch(decrementTimer());
-      }, 1000);
+    const intervalId = setInterval(() => {
+      dispatch(decrementTimer());
+    }, 1000);
 
-      return (): void => {
-        clearInterval(intervalId);
-      };
-    }
-
-    return undefined;
+    return (): void => {
+      clearInterval(intervalId);
+    };
   }, [gameState.status, dispatch]);
 
   const score = (): void => {
