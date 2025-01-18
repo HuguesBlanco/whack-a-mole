@@ -2,11 +2,33 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { decrementTimer, incrementScore, startGame } from './store/gameSlice';
 import { AppDispatch, RootState } from './store/store';
-import Mole from './ui/Mole';
+import { MolesGridData } from './types';
+import MolesGrid from './ui/MolesGrid';
 
 function App(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
   const dispatch = useDispatch<AppDispatch>();
+
+  const molesGridData: MolesGridData = [
+    [
+      { id: 'a1', isUp: false },
+      { id: 'a2', isUp: false },
+      { id: 'a3', isUp: false },
+      { id: 'a4', isUp: false },
+    ],
+    [
+      { id: 'b1', isUp: false },
+      { id: 'b2', isUp: true },
+      { id: 'b3', isUp: false },
+      { id: 'b4', isUp: false },
+    ],
+    [
+      { id: 'c1', isUp: false },
+      { id: 'c2', isUp: false },
+      { id: 'c3', isUp: false },
+      { id: 'c4', isUp: false },
+    ],
+  ];
 
   const handleGameStart = (): void => {
     dispatch(startGame());
@@ -44,8 +66,7 @@ function App(): React.JSX.Element {
       {gameState.status === 'IN_PROGRESS' && (
         <div>
           <div>{gameState.score}</div>
-          <Mole isActive onActiveClick={score}></Mole>
-          <Mole isActive={false} onActiveClick={score}></Mole>
+          <MolesGrid data={molesGridData} onActiveClick={score} />
         </div>
       )}
 
