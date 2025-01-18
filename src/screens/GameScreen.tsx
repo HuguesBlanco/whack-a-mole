@@ -21,7 +21,7 @@ function GameScreen(): React.JSX.Element {
     return (): void => {
       clearInterval(intervalId);
     };
-  }, [gameState.status, dispatch]);
+  }, [dispatch]);
 
   const score = (): void => {
     dispatch(incrementScore());
