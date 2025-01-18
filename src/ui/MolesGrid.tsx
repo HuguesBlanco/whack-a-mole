@@ -10,8 +10,8 @@ type MolesGridProps = {
 function MolesGrid({ data, onActiveClick }: MolesGridProps): React.JSX.Element {
   return (
     <div>
-      {data.map((rowData) => {
-        const key = rowData[0]?.id[0]; // TODO: Make a proper mechanism defining the row key.
+      {data.map((rowData, index) => {
+        const key = rowData[index]?.id[1]; // TODO: Make a proper mechanism defining the row key.
 
         return (
           <MolesRow key={key} data={rowData} onActiveClick={onActiveClick} />
