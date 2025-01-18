@@ -4,10 +4,10 @@ import moleUp from '../assets/hole-mole-up.png';
 
 type MoleProps = {
   isUp: boolean;
-  onActiveClick: () => void;
+  onMoleHit: () => void;
 };
 
-function Mole({ isUp, onActiveClick }: MoleProps): React.JSX.Element {
+function Mole({ isUp, onMoleHit }: MoleProps): React.JSX.Element {
   return (
     <div>
       <img
@@ -15,7 +15,7 @@ function Mole({ isUp, onActiveClick }: MoleProps): React.JSX.Element {
         alt={isUp ? 'Mole up in hole' : 'Mole down in hole'}
         onClick={() => {
           if (isUp) {
-            onActiveClick();
+            onMoleHit();
           }
         }}
       />

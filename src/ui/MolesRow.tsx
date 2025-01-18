@@ -4,18 +4,14 @@ import Mole from './Mole';
 
 type MolesRowProps = {
   data: MolesRowData;
-  onActiveClick: () => void;
+  onMoleHit: () => void;
 };
 
-function MolesRow({ data, onActiveClick }: MolesRowProps): React.JSX.Element {
+function MolesRow({ data, onMoleHit }: MolesRowProps): React.JSX.Element {
   return (
     <div style={{ display: 'flex' }}>
       {data.map((MoleData) => (
-        <Mole
-          key={MoleData.id}
-          isUp={MoleData.isUp}
-          onActiveClick={onActiveClick}
-        />
+        <Mole key={MoleData.id} isUp={MoleData.isUp} onMoleHit={onMoleHit} />
       ))}
     </div>
   );

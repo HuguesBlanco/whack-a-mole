@@ -49,7 +49,7 @@ function GameScreen(): React.JSX.Element {
     <div style={{ cursor: `url(${hammerCursor}) 32 32, pointer` }}>
       <div>{gameState.timeLeftInSeconds}</div>
       <div>{gameState.score}</div>
-      <MolesGrid data={molesGridData} onActiveClick={score} />
+      <MolesGrid data={molesGridData} onMoleHit={score} />
     </div>
   );
 }
