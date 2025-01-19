@@ -5,6 +5,7 @@ import { generateMolesGridData } from '../libs/gridGeneration';
 import { decrementTimer, incrementScore } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
 import { MolesGridData } from '../types';
+import MetricPanel from '../ui/MetricPanel';
 import MolesGrid from '../ui/MolesGrid';
 import PlayingField from '../ui/PlayingField';
 
@@ -49,9 +50,42 @@ function GameScreen(): React.JSX.Element {
   return (
     <div style={{ cursor: `url(${hammerCursor}) 32 32, pointer` }}>
       <PlayingField>
-        <div style={{ height: '20vh', position: 'absolute' }}>
-          <div>{gameState.timeLeftInSeconds}</div>
-          <div>{gameState.score}</div>
+        <div
+          style={{
+            width: '20vw',
+            height: '20vh',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <MetricPanel
+            label="Score"
+            value={gameState.score}
+            labelColor="#ea1831"
+          />
+        </div>
+
+        <div
+          style={{
+            width: '20vw',
+            height: '20vh',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <MetricPanel
+            label="Time left"
+            value={gameState.timeLeftInSeconds}
+            labelColor="#1422c8"
+          />
         </div>
 
         <div
