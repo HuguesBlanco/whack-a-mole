@@ -79,7 +79,7 @@ export function useMolesDataAtRandomInterval(): MolesGridData {
     return (): void => {
       clearTimeout(timeoutId);
     };
-  }, [setMolesGridData]);
+  }, [molesGridData]);
 
   return molesGridData;
 }
