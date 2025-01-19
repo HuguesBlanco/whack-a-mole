@@ -4,7 +4,7 @@ import GameScreen from './screens/GameScreen';
 import HomeScreen from './screens/HomeScreen';
 import ScoreScreen from './screens/ScoreScreen';
 import { RootState } from './store/store';
-import './styles/font.css';
+import './styles/fonts.css';
 
 function App(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
