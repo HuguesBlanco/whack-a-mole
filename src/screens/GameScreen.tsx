@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import hammerCursor from '../assets/hammer-cursor-128x100.png';
+import { useGameTimer } from '../hooks/useGameTimer';
 import { generateMolesGridData } from '../libs/gridGeneration';
-import { decrementTimer, incrementScore } from '../store/gameSlice';
+import { incrementScore } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
 import { MolesGridData } from '../types';
 import MetricPanel from '../ui/MetricPanel';
@@ -32,16 +33,7 @@ function GameScreen(): React.JSX.Element {
     };
   }, [molesGridData]);
 
-  // Run game timer.
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      dispatch(decrementTimer());
-    }, 1000);
-
-    return (): void => {
-      clearInterval(intervalId);
-    };
-  }, [dispatch]);
+  useGameTimer();
 
   const score = (): void => {
     dispatch(incrementScore());
