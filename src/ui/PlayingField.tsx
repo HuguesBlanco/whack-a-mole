@@ -2,7 +2,7 @@ import React from 'react';
 import fieldImageUrl from '../assets/field-background.jpg';
 
 type PlayingFieldProps = {
-  children: React.JSX.Element[];
+  children: React.JSX.Element | React.JSX.Element[];
 };
 
 function PlayingField({ children }: PlayingFieldProps): React.JSX.Element {
