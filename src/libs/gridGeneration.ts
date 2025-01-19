@@ -1,6 +1,6 @@
 import { MolesGridData } from '../types';
 
-const ROW_IDS = [1, 2, 3, 4];
+const ROW_IDS = [1, 2, 3];
 
 const COLUMN_IDS = ['A', 'B', 'C', 'D'];
 
