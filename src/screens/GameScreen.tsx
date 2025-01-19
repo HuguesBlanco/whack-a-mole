@@ -6,6 +6,7 @@ import { decrementTimer, incrementScore } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
 import { MolesGridData } from '../types';
 import MolesGrid from '../ui/MolesGrid';
+import PlayingField from '../ui/PlayingField';
 
 function getRandomDelay(): number {
   return Math.floor(Math.random() * (2000 - 200 + 1)) + 200;
@@ -47,9 +48,11 @@ function GameScreen(): React.JSX.Element {
 
   return (
     <div style={{ cursor: `url(${hammerCursor}) 32 32, pointer` }}>
-      <div>{gameState.timeLeftInSeconds}</div>
-      <div>{gameState.score}</div>
-      <MolesGrid data={molesGridData} onMoleHit={score} />
+      <PlayingField>
+        <div>{gameState.timeLeftInSeconds}</div>
+        <div>{gameState.score}</div>
+        <MolesGrid data={molesGridData} onMoleHit={score} />
+      </PlayingField>
     </div>
   );
 }
