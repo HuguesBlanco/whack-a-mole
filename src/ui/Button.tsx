@@ -7,32 +7,45 @@ type ButtonProps = {
 
   /** The callback executed when clicking on the button. */
   onClick: () => void;
+
+  /** The color of the background. */
+  backgroundColor?: string;
+
+  /** The text color. */
+  textColor?: string;
+
+  /** The size of the button. */
+  size?: 'SMALL' | 'BIG';
 };
 
 /**
  * A styled button component designed with a playful appearance.
  */
-function Button({ children, onClick }: ButtonProps): React.JSX.Element {
-  const handleClick = (): void => {
-    onClick();
-  };
+function Button({
+  children,
+  onClick,
+  backgroundColor = COLOR_RED,
+  textColor = COLOR_PURPLE,
+  size = 'SMALL',
+}: ButtonProps): React.JSX.Element {
+  const isBigButton = size === 'BIG';
 
   return (
     <button
       style={{
-        backgroundColor: COLOR_RED,
-        color: COLOR_PURPLE,
-        fontSize: '3vw',
+        backgroundColor,
+        color: textColor,
+        fontSize: isBigButton ? '3vw' : '1.5rem',
         fontWeight: 'bold',
         fontFamily: 'sans-serif',
         padding: '1rem 2rem',
-        border: `2px solid ${COLOR_PURPLE}`,
+        border: `2px solid ${textColor}`,
         borderRadius: '20px',
         cursor: 'pointer',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-        transition: 'transform 0.2s ease-in-out', // Smooth scaling on hover
+        transition: 'transform 0.2s ease-in-out',
       }}
-      onClick={handleClick}
+      onClick={onClick}
     >
       {children}
     </button>

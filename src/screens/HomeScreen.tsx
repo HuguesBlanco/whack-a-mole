@@ -38,7 +38,9 @@ function HomeScreen(): React.JSX.Element {
           }}
         >
           <Title>Whock a mole</Title>
-          <Button onClick={handleStart}>Start Game</Button>
+          <Button onClick={handleStart} size="BIG">
+            Start Game
+          </Button>
         </div>
       </div>
     </PlayingField>
