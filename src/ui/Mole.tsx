@@ -17,8 +17,17 @@ function Mole({ isUp, onMoleHit }: MoleProps): React.JSX.Element {
   }
 
   return (
-    <div>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+      }}
+    >
       <img
+        style={{ width: '60%', height: 'auto' }}
         src={isMoleVisible ? moleUpImagePath : moleDownImagePath}
         alt={isMoleVisible ? 'Mole up in hole' : 'Mole down in hole'}
         onClick={() => {
