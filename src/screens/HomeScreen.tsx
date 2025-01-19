@@ -6,7 +6,9 @@ import Button from '../ui/Button';
 import PlayingField from '../ui/PlayingField';
 import Title from '../ui/Title';
 
-/** The initial screen of the game, displayed before starting the game. */
+/**
+ * The initial screen of the game, displayed before starting the game.
+ */
 function HomeScreen(): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
 
