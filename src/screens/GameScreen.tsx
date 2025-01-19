@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import hammerCursor from '../assets/hammer-cursor-small.png';
+import hammerCursor from '../assets/hammer-cursor-128x100.png';
 import { generateMolesGridData } from '../libs/gridGeneration';
 import { decrementTimer, incrementScore } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
@@ -48,7 +48,7 @@ function GameScreen(): React.JSX.Element {
   };
 
   return (
-    <div style={{ cursor: `url(${hammerCursor}) 32 32, pointer` }}>
+    <div style={{ cursor: `url(${hammerCursor}) 128 100, pointer` }}>
       <PlayingField>
         <div
           style={{
