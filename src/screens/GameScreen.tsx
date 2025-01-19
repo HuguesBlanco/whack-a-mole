@@ -10,6 +10,9 @@ import MetricPanel from '../ui/MetricPanel';
 import MolesGrid from '../ui/MolesGrid';
 import PlayingField from '../ui/PlayingField';
 
+/**
+ * The screen displayed while the game is in progress. Contains the game itself.
+ */
 function GameScreen(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
   const dispatch = useDispatch<AppDispatch>();
