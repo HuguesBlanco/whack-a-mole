@@ -22,7 +22,7 @@ function GameScreen(): React.JSX.Element {
   };
 
   return (
-    <div style={{ cursor: `url(${hammerCursor}) 128 100, pointer` }}>
+    <div style={{ cursor: `url(${hammerCursor}) 35 65, pointer` }}>
       <PlayingField>
         <div
           style={{
