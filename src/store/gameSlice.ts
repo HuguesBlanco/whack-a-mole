@@ -9,7 +9,7 @@ type GameState = {
 const initialState: GameState = {
   status: 'INITIAL',
   score: 0,
-  timeLeftInSeconds: 5,
+  timeLeftInSeconds: 120,
 };
 
 const gameSlice = createSlice({
