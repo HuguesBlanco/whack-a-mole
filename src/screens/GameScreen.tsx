@@ -1,37 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import hammerCursor from '../assets/hammer-cursor-128x100.png';
 import { useGameTimer } from '../hooks/useGameTimer';
-import { generateMolesGridData } from '../libs/gridGeneration';
+import { useMolesDataAtRandomInterval } from '../hooks/useMolesDataAtRandomInterval';
 import { incrementScore } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
-import { MolesGridData } from '../types';
 import MetricPanel from '../ui/MetricPanel';
 import MolesGrid from '../ui/MolesGrid';
 import PlayingField from '../ui/PlayingField';
-
-function getRandomDelay(): number {
-  return Math.floor(Math.random() * (2000 - 200 + 1)) + 200;
-}
 
 function GameScreen(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [molesGridData, setMolesGridData] = useState<MolesGridData>(
-    generateMolesGridData(),
-  );
-
-  // Generate grid data at random interval.
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setMolesGridData(generateMolesGridData());
-    }, getRandomDelay());
-
-    return (): void => {
-      clearTimeout(timeoutId);
-    };
-  }, [molesGridData]);
+  const molesGridData = useMolesDataAtRandomInterval();
 
   useGameTimer();
 
