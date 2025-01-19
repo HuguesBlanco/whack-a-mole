@@ -5,6 +5,7 @@ import { useGameTimer } from '../hooks/useGameTimer';
 import { useMolesDataAtRandomInterval } from '../hooks/useMolesDataAtRandomInterval';
 import { incrementScore } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
+import { COLOR_PURPLE, COLOR_RED } from '../styles/colors';
 import MetricPanel from '../ui/MetricPanel';
 import MolesGrid from '../ui/MolesGrid';
 import PlayingField from '../ui/PlayingField';
@@ -39,7 +40,7 @@ function GameScreen(): React.JSX.Element {
           <MetricPanel
             label="Score"
             value={gameState.score}
-            labelColor="#ea1831"
+            labelColor={COLOR_RED}
           />
         </div>
 
@@ -58,7 +59,7 @@ function GameScreen(): React.JSX.Element {
           <MetricPanel
             label="Time left"
             value={gameState.timeLeftInSeconds}
-            labelColor="#1422c8"
+            labelColor={COLOR_PURPLE}
           />
         </div>
 
