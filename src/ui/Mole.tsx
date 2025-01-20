@@ -3,10 +3,13 @@ import moleDownImagePath from '../assets/hole-mole-down.png';
 import moleUpImagePath from '../assets/hole-mole-up.png';
 
 type MoleProps = {
+  /** Is the mole visible in the hole ? */
   isUp: boolean;
+  /** Callback function triggered when the mole is hit. */
   onMoleHit: () => void;
 };
 
+/** A mole hole on the board, with possibly a mole visible in the hole. */
 function Mole({ isUp, onMoleHit }: MoleProps): React.JSX.Element {
   const [isHit, setIsHit] = useState(false);
 
@@ -15,6 +18,13 @@ function Mole({ isUp, onMoleHit }: MoleProps): React.JSX.Element {
   if (!isUp && isHit) {
     setIsHit(false);
   }
+
+  const strikeTheMole = (): void => {
+    if (isMoleVisible) {
+      onMoleHit();
+      setIsHit(true);
+    }
+  };
 
   return (
     <div
@@ -30,12 +40,7 @@ function Mole({ isUp, onMoleHit }: MoleProps): React.JSX.Element {
         style={{ width: '60%', height: 'auto' }}
         src={isMoleVisible ? moleUpImagePath : moleDownImagePath}
         alt={isMoleVisible ? 'Mole up in hole' : 'Mole down in hole'}
-        onClick={() => {
-          if (isMoleVisible) {
-            onMoleHit();
-            setIsHit(true);
-          }
-        }}
+        onClick={strikeTheMole}
       />
     </div>
   );
