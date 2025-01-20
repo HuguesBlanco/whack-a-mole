@@ -71,7 +71,11 @@ function ScoreInput({
               currentScore.playerName
             ) : (
               <input
-                style={{ fontSize: '2rem' }}
+                style={{
+                  fontSize: '2rem',
+                  width: '100%',
+                  boxSizing: 'border-box',
+                }}
                 type="text"
                 value={playerName}
                 onChange={handleNameChange}
