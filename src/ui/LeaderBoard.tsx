@@ -1,7 +1,16 @@
 import React, { ReactElement } from 'react';
-import { COLOR_WHITE } from '../styles/colors';
-import { ScoresWithCurrentInfo } from '../types';
-import LeaderBoardRow from './LeaderBoardRow';
+import { COLOR_GREEN, COLOR_WHITE } from '../styles/colors';
+import { CurrentScore, Score, ScoresWithCurrentInfo } from '../types';
+import { isCurrentScore } from '../utils/scoreUtils';
+
+function getCellStyles(scoreData: Score | CurrentScore): React.CSSProperties {
+  const borderColor = isCurrentScore(scoreData) ? COLOR_GREEN : COLOR_WHITE;
+
+  return {
+    padding: '1rem',
+    border: `2px solid ${borderColor}`,
+  };
+}
 
 /** Table displaying the scores */
 type LeaderBoardProps = {
@@ -13,11 +22,7 @@ type LeaderBoardProps = {
 /**
  * Table displaying the scores.
  */
-function LeaderBoard({
-  scoresData,
-  textInputComponent,
-  onClickSave,
-}: LeaderBoardProps): React.JSX.Element {
+function LeaderBoard({ scoresData }: LeaderBoardProps): React.JSX.Element {
   return (
     <table
       style={{
@@ -30,20 +35,26 @@ function LeaderBoard({
     >
       <thead>
         <tr>
-          <th>Ranking</th>
-          <th>Name</th>
-          <th>Score</th>
+          <th style={{ width: '25%', fontFamily: 'DynaPuff, serif' }}>
+            Ranking
+          </th>
+          <th style={{ width: '50%', fontFamily: 'DynaPuff, serif' }}>Name</th>
+          <th style={{ width: '25%', fontFamily: 'DynaPuff, serif' }}>Score</th>
         </tr>
       </thead>
       <tbody>
         {scoresData.map((scoreData, index) => (
-          <LeaderBoardRow
-            key={scoreData.id}
-            scoreData={scoreData}
-            scoreRanking={index + 1}
-            textInputComponent={textInputComponent}
-            onClickSave={onClickSave}
-          />
+          <tr key={scoreData.id}>
+            <td className="ranking" style={getCellStyles(scoreData)}>
+              {index + 1}
+            </td>
+            <td className="name" style={getCellStyles(scoreData)}>
+              {scoreData.playerName}
+            </td>
+            <td className="score" style={getCellStyles(scoreData)}>
+              {scoreData.scoreValue}
+            </td>
+          </tr>
         ))}
       </tbody>
     </table>

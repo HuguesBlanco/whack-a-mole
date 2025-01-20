@@ -3,12 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getScores, updateScores } from '../services/scoreServices';
 import { startGame } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
-import { COLOR_PURPLE, COLOR_YELLOW } from '../styles/colors';
+import {
+  COLOR_GREEN,
+  COLOR_PURPLE,
+  COLOR_WHITE,
+  COLOR_YELLOW,
+} from '../styles/colors';
 import Button from '../ui/Button';
 import LeaderBoard from '../ui/LeaderBoard';
 import PlayingField from '../ui/PlayingField';
+import ScoreInput from '../ui/ScoreInput';
 import TextInput from '../ui/TextInput';
-import { generateScoreId, sortScores } from '../utils/scoreUtils';
+import {
+  generateScoreId,
+  isCurrentScore,
+  sortScores,
+} from '../utils/scoreUtils';
 
 /**
  * Screen shown at the end of the game that displays the final score.
@@ -31,6 +41,11 @@ function ScoreScreen(): React.JSX.Element {
   const newScoresSorted = sortScores(newScores);
 
   const topThreeScores = newScoresSorted.slice(0, 3);
+
+  const currentScoreIndex = newScoresSorted.findIndex((score) =>
+    isCurrentScore(score),
+  );
+  const currentScoreRanking = currentScoreIndex + 1;
 
   const saveScore = (): void => {
     const scoresUpdatedOrError = updateScores(newScoresSorted);
@@ -60,11 +75,8 @@ function ScoreScreen(): React.JSX.Element {
         <div
           style={{
             opacity: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: '15vh',
+            width: '50%',
+            margin: '15vh auto 0 auto',
           }}
         >
           <div style={{ marginBottom: '2rem' }}>
@@ -76,9 +88,39 @@ function ScoreScreen(): React.JSX.Element {
               onClickSave={saveScore}
             />
           </div>
-          <Button onClick={startNewGame} backgroundColor={COLOR_YELLOW}>
-            Play again
-          </Button>
+
+          <div>
+            <ScoreInput
+              currentScore={currentScore}
+              scoreRanking={currentScoreRanking}
+              playerName={playerName}
+              setPlayerName={setPlayerName}
+            />
+          </div>
+
+          <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+            <Button onClick={saveScore} backgroundColor={COLOR_GREEN}>
+              Save score
+            </Button>
+          </div>
+
+          <div
+            style={{
+              marginTop: '2rem',
+              marginBottom: '2rem',
+              textAlign: 'center',
+              color: COLOR_WHITE,
+              fontFamily: 'DynaPuff, serif',
+            }}
+          >
+            OR
+          </div>
+
+          <div style={{ textAlign: 'center' }}>
+            <Button onClick={startNewGame} backgroundColor={COLOR_YELLOW}>
+              Play again
+            </Button>
+          </div>
         </div>
       </div>
     </PlayingField>
