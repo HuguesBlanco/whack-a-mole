@@ -43,7 +43,6 @@ function Button({
         borderRadius: '20px',
         cursor: 'pointer',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
-        transition: 'transform 0.2s ease-in-out',
       }}
       onClick={onClick}
     >
