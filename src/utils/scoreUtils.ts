@@ -73,11 +73,3 @@ export function sortScores(scores: Scores): Scores {
     return a.playerName.localeCompare(b.playerName);
   });
 }
-
-/**
- * Generate an ID for a score object.
- * @returns An Id for the new score
- */
-export function generateScoreId(): string {
-  return String(Date.now());
-}

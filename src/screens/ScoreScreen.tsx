@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { getScores, updateScores } from '../services/scoreServices';
 import { startGame } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
@@ -14,11 +15,7 @@ import LeaderBoard from '../ui/LeaderBoard';
 import PlayingField from '../ui/PlayingField';
 import ScoreInput from '../ui/ScoreInput';
 import TextInput from '../ui/TextInput';
-import {
-  generateScoreId,
-  isCurrentScore,
-  sortScores,
-} from '../utils/scoreUtils';
+import { isCurrentScore, sortScores } from '../utils/scoreUtils';
 
 /**
  * Screen shown at the end of the game that displays the final score.
@@ -28,7 +25,7 @@ function ScoreScreen(): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
 
   const previousScores = useMemo(getScores, []);
-  const scoreId = useMemo(generateScoreId, []);
+  const scoreId = useMemo(() => uuidv4(), []);
   const [playerName, setPlayerName] = useState('');
   const [isScoreSaved, setIsScoreSaved] = useState(false);
   const currentScore = {
