@@ -5,7 +5,7 @@ import {
   _getMoleUpCoordinates,
   _getRandomDelay,
   _ROW_IDS,
-} from './useMolesDataAtRandomInterval'; // Adjust the path as needed
+} from './useMolesDataAtRandomInterval';
 
 describe('Tests of _getMoleUpCoordinates function', () => {
   it('should return valid coordinates within the range of _ROW_IDS and _COLUMN_IDS', () => {
