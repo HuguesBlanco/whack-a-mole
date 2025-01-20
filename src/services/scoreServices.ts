@@ -1,37 +1,14 @@
-import { Score, Scores, ScoresWithCurrentInfo } from '../types';
+import { Scores, ScoresWithCurrentInfo } from '../types';
+import {
+  isValidScoreList,
+  removeCurrentScoreInformation,
+  sortScores,
+} from '../utils/scoreUtils';
 
 /**
  * Key used for storing scores in localStorage.
  */
 const LOCAL_STORAGE_KEY = 'gameScores';
-
-/**
- * Validates if a value conforms to the Score type.
- * @param value The value to check.
- * @returns True if the value is a valid Score, false otherwise.
- */
-function _isValidScore(value: unknown): value is Score {
-  if (typeof value !== 'object' || value === null) return false;
-
-  if (!('id' in value) || typeof value.id !== 'string' || value.id === '')
-    return false;
-
-  if (!('playerName' in value) || typeof value.playerName !== 'string')
-    return false;
-
-  if (!('score' in value) || typeof value.score !== 'number') return false;
-
-  return true;
-}
-
-/**
- * Checks if the given value is a valid list of scores.
- * @param value The value to validate as a list of scores.
- * @returns True if the value is a valid list of scores, false otherwise.
- */
-function _isValidScoreList(value: unknown): boolean {
-  return Array.isArray(value) && value.every(_isValidScore);
-}
 
 /**
  * Provides a mocked set of scores for initial data.
@@ -45,34 +22,6 @@ export function _getMockedScores(): Scores {
     { playerName: 'Jane', scoreValue: 5, id: 'mock04' },
     { playerName: 'John', scoreValue: 14, id: 'mock05' },
   ];
-}
-
-/**
- * Removes the current score information from the scores list.
- * @param scores The list of scores with current score information.
- * @returns The list of scores without current score information.
- */
-function _removeCurrentScoreInformation(scores: ScoresWithCurrentInfo): Scores {
-  return scores.map((score) => ({
-    id: score.id,
-    playerName: score.playerName,
-    scoreValue: score.scoreValue,
-  }));
-}
-
-/**
- * Sorts a list of scores in descending order by score.
- * If scores are tied, sorts alphabetically by player name.
- * @param scores The list of scores to sort.
- * @returns The sorted list of scores.
- */
-export function _sortScores(scores: Scores): Scores {
-  return [...scores].sort((a, b) => {
-    if (b.scoreValue !== a.scoreValue) {
-      return b.scoreValue - a.scoreValue;
-    }
-    return a.playerName.localeCompare(b.playerName);
-  });
 }
 
 /**
@@ -110,16 +59,20 @@ export function _saveScores(newScores: Scores): Scores | Error {
   }
 }
 
+/**
+ * Retrieves the scores saved.
+ * @returns The scores saved, or the mock data if there is no stored scores. Scores are sorted.
+ */
 export function getScores(): Scores {
   const fetchedScores = _fetchScores();
 
-  if (fetchedScores instanceof Error || !_isValidScoreList(fetchedScores)) {
+  if (fetchedScores instanceof Error || !isValidScoreList(fetchedScores)) {
     const mockedScores = _getMockedScores();
     _saveScores(mockedScores);
-    return _sortScores(mockedScores);
+    return sortScores(mockedScores);
   }
 
-  return _sortScores(fetchedScores);
+  return sortScores(fetchedScores);
 }
 
 /**
@@ -130,12 +83,12 @@ export function getScores(): Scores {
 export function updateScores(
   newScores: Scores | ScoresWithCurrentInfo,
 ): Scores | Error {
-  if (!_isValidScoreList(newScores)) {
+  if (!isValidScoreList(newScores)) {
     return new Error('Invalid scores provided.');
   }
 
-  const cleanedScores = _removeCurrentScoreInformation(newScores);
-  const sortedScores = _sortScores(cleanedScores);
+  const cleanedScores = removeCurrentScoreInformation(newScores);
+  const sortedScores = sortScores(cleanedScores);
   const saveResult = _saveScores(sortedScores);
 
   if (saveResult instanceof Error) {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { COLOR_GREEN, COLOR_WHITE } from '../styles/colors';
 import { CurrentScore, Score } from '../types';
-import { isCurrentScore } from '../utils';
+import { isCurrentScore } from '../utils/scoreUtils';
 import Button from './Button';
 import TextInput from './TextInput';
 
