@@ -12,7 +12,7 @@ import Title from '../ui/Title';
 function HomeScreen(): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleStart = (): void => {
+  const startMatch = (): void => {
     dispatch(startGame());
   };
 
@@ -38,7 +38,7 @@ function HomeScreen(): React.JSX.Element {
           }}
         >
           <Title>Whock a mole</Title>
-          <Button onClick={handleStart} size="BIG">
+          <Button onClick={startMatch} size="BIG">
             Start Game
           </Button>
         </div>
