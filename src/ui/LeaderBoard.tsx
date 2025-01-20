@@ -3,7 +3,14 @@ import { COLOR_GREEN, COLOR_WHITE } from '../styles/colors';
 import { CurrentScore, Score, ScoresWithCurrentInfo } from '../types';
 import { isCurrentScore } from '../utils/scoreUtils';
 
-function getCellStyles(scoreData: Score | CurrentScore): React.CSSProperties {
+/**
+ * Generate the CSS styles for the table cells (td).
+ * @param scoreData The data of the score displayed in the cell.
+ * @returns An object containing the CSS styles of the td.
+ */
+function generateCellStyles(
+  scoreData: Score | CurrentScore,
+): React.CSSProperties {
   const borderColor = isCurrentScore(scoreData) ? COLOR_GREEN : COLOR_WHITE;
 
   return {
@@ -12,8 +19,9 @@ function getCellStyles(scoreData: Score | CurrentScore): React.CSSProperties {
   };
 }
 
-/** Table displaying the scores */
+/** Table displaying the scores. */
 type LeaderBoardProps = {
+  /** The data of the scores displayed in the board. */
   scoresData: ScoresWithCurrentInfo;
 };
 
@@ -43,13 +51,13 @@ function LeaderBoard({ scoresData }: LeaderBoardProps): React.JSX.Element {
       <tbody>
         {scoresData.map((scoreData, index) => (
           <tr key={scoreData.id}>
-            <td className="ranking" style={getCellStyles(scoreData)}>
+            <td className="ranking" style={generateCellStyles(scoreData)}>
               {index + 1}
             </td>
-            <td className="name" style={getCellStyles(scoreData)}>
+            <td className="name" style={generateCellStyles(scoreData)}>
               {scoreData.playerName}
             </td>
-            <td className="score" style={getCellStyles(scoreData)}>
+            <td className="score" style={generateCellStyles(scoreData)}>
               {scoreData.scoreValue}
             </td>
           </tr>
