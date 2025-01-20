@@ -18,7 +18,7 @@ function GameScreen(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [isActive, triggerAction] = useTemporaryActivity(500);
+  const [isActive, triggerActivity] = useTemporaryActivity(500);
 
   const molesGridData = useMolesDataAtRandomInterval();
 
@@ -26,7 +26,7 @@ function GameScreen(): React.JSX.Element {
 
   const score = (): void => {
     dispatch(incrementScore());
-    triggerAction();
+    triggerActivity();
   };
 
   return (

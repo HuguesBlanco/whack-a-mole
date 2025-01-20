@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Manage temporary event
- * @param duration the time in milliseconds of the even.
- * @returns A tuple: [isActive, trigger]
- * - `visible`: Is the even triggered still active.
- * - `triggerAction`: A function to trigger the event.
+ * Provides a mechanism to manage a temporary active state for a specified duration.
+ * @param duration Time in milliseconds for which the state remains active after being triggered.
+ * @returns A tuple containing:
+ * - `isActive`: A boolean indicating whether the state is currently active.
+ * - `triggerActivity`: A function to trigger the active state.
  */
 export function useTemporaryActivity(duration: number): [boolean, () => void] {
   const [isActive, setIsActive] = useState(false);
 
-  const triggerAction = (): void => {
+  const triggerActivity = (): void => {
     setIsActive(true);
   };
 
@@ -28,5 +28,5 @@ export function useTemporaryActivity(duration: number): [boolean, () => void] {
     return undefined;
   }, [isActive, duration]);
 
-  return [isActive, triggerAction];
+  return [isActive, triggerActivity];
 }
