@@ -1,4 +1,5 @@
 import React from 'react';
+import { COLOR_BLACK, COLOR_WHITE } from '../styles/colors';
 
 type MerticPanelProps = {
   /** The label defining the value */
@@ -18,15 +19,15 @@ type MerticPanelProps = {
 function MetricPanel({
   label,
   value,
-  labelColor = '#000000',
-  valueColor = '#000000',
+  labelColor = COLOR_BLACK,
+  valueColor = COLOR_BLACK,
 }: MerticPanelProps): React.JSX.Element {
   const textBorderStyles = {
     textShadow: `
-    -1px -1px 0 #FFFFFF,
-     1px -1px 0 #FFFFFF,
-    -1px  1px 0 #FFFFFF,
-     1px  1px 0 #FFFFFF`,
+    -1px -1px 0 ${COLOR_WHITE},
+     1px -1px 0 ${COLOR_WHITE},
+    -1px  1px 0 ${COLOR_WHITE},
+     1px  1px 0 ${COLOR_WHITE}`,
   };
 
   return (
