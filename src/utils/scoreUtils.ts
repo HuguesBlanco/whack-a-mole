@@ -1,5 +1,11 @@
 import { CurrentScore, Score, Scores, ScoresWithCurrentInfo } from '../types';
 
+/**
+ * Determines whether the provided value is a CurrentScore object.
+ * @param score The object to test.
+ * @returns true if the object of type CurrentScore, otherwise false.
+ */
+
 export function isCurrentScore(
   score: Score | CurrentScore,
 ): score is CurrentScore {
