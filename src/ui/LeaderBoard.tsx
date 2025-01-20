@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { COLOR_GREEN, COLOR_WHITE } from '../styles/colors';
 import { CurrentScore, Score, ScoresWithCurrentInfo } from '../types';
 import { isCurrentScore } from '../utils/scoreUtils';
@@ -15,8 +15,6 @@ function getCellStyles(scoreData: Score | CurrentScore): React.CSSProperties {
 /** Table displaying the scores */
 type LeaderBoardProps = {
   scoresData: ScoresWithCurrentInfo;
-  textInputComponent: ReactElement;
-  onClickSave: () => void;
 };
 
 /**

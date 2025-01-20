@@ -14,7 +14,6 @@ import Button from '../ui/Button';
 import LeaderBoard from '../ui/LeaderBoard';
 import PlayingField from '../ui/PlayingField';
 import ScoreInput from '../ui/ScoreInput';
-import TextInput from '../ui/TextInput';
 import { isCurrentScore, sortScores } from '../utils/scoreUtils';
 
 /**
@@ -77,13 +76,7 @@ function ScoreScreen(): React.JSX.Element {
           }}
         >
           <div style={{ marginBottom: '2rem' }}>
-            <LeaderBoard
-              scoresData={topThreeScores}
-              textInputComponent={
-                <TextInput value={playerName} setValue={setPlayerName} />
-              }
-              onClickSave={saveScore}
-            />
+            <LeaderBoard scoresData={topThreeScores} />
           </div>
 
           <div>
