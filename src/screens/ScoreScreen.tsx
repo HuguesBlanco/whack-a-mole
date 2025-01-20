@@ -1,14 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { getScores, updateScores } from '../services/scoreServices';
 import { RootState } from '../store/store';
-import {
-  COLOR_GREEN,
-  COLOR_PURPLE,
-  COLOR_RED,
-  COLOR_YELLOW,
-} from '../styles/colors';
+import { COLOR_PURPLE, COLOR_YELLOW } from '../styles/colors';
+import { ScoresWithCurrentInfo } from '../types';
 import Button from '../ui/Button';
-import MetricPanel from '../ui/MetricPanel';
+import LeaderBoard from '../ui/LeaderBoard';
 import PlayingField from '../ui/PlayingField';
 
 /**
@@ -17,8 +14,22 @@ import PlayingField from '../ui/PlayingField';
 function ScoreScreen(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
 
+  const previousScores = getScores();
+
+  const scoreId = String(Date.now());
+
+  const newScores: ScoresWithCurrentInfo = [
+    ...previousScores,
+    {
+      id: scoreId,
+      playerName: '',
+      scoreValue: gameState.score,
+      isCurrent: true,
+    },
+  ];
+
   const saveScore = (): void => {
-    console.log('Save score');
+    updateScores(newScores);
   };
 
   const startNewGame = (): void => {
@@ -46,15 +57,9 @@ function ScoreScreen(): React.JSX.Element {
             marginTop: '15vh',
           }}
         >
-          <MetricPanel
-            label="Score"
-            value={gameState.score}
-            labelColor={COLOR_YELLOW}
-            valueColor={COLOR_GREEN}
-          />
-          <Button onClick={saveScore} backgroundColor={COLOR_RED}>
-            Save your score
-          </Button>
+          <div style={{ marginBottom: '2rem' }}>
+            <LeaderBoard scoresData={newScores} onClickSave={saveScore} />
+          </div>
           <Button onClick={startNewGame} backgroundColor={COLOR_YELLOW}>
             Play again
           </Button>

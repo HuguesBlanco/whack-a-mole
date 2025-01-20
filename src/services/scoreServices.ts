@@ -1,4 +1,4 @@
-import { Score, Scores } from '../types';
+import { Score, Scores, ScoresWithCurrentInfo } from '../types';
 
 /**
  * Key used for storing scores in localStorage.
@@ -12,6 +12,9 @@ const LOCAL_STORAGE_KEY = 'gameScores';
  */
 function _isValidScore(value: unknown): value is Score {
   if (typeof value !== 'object' || value === null) return false;
+
+  if (!('id' in value) || typeof value.id !== 'string' || value.id === '')
+    return false;
 
   if (!('playerName' in value) || typeof value.playerName !== 'string')
     return false;
@@ -36,12 +39,25 @@ function _isValidScoreList(value: unknown): boolean {
  */
 export function _getMockedScores(): Scores {
   return [
-    { playerName: 'Alice', score: 10 },
-    { playerName: 'Bob', score: 5 },
-    { playerName: 'Charlie', score: 8 },
-    { playerName: 'Jane', score: 5 },
-    { playerName: 'John', score: 14 },
+    { playerName: 'Alice', scoreValue: 10, id: 'mock01' },
+    { playerName: 'Bob', scoreValue: 5, id: 'mock02' },
+    { playerName: 'Charlie', scoreValue: 8, id: 'mock03' },
+    { playerName: 'Jane', scoreValue: 5, id: 'mock04' },
+    { playerName: 'John', scoreValue: 14, id: 'mock05' },
   ];
+}
+
+/**
+ * Removes the current score information from the scores list.
+ * @param scores The list of scores with current score information.
+ * @returns The list of scores without current score information.
+ */
+function _removeCurrentScoreInformation(scores: ScoresWithCurrentInfo): Scores {
+  return scores.map((score) => ({
+    id: score.id,
+    playerName: score.playerName,
+    scoreValue: score.scoreValue,
+  }));
 }
 
 /**
@@ -52,8 +68,8 @@ export function _getMockedScores(): Scores {
  */
 export function _sortScores(scores: Scores): Scores {
   return [...scores].sort((a, b) => {
-    if (b.score !== a.score) {
-      return b.score - a.score;
+    if (b.scoreValue !== a.scoreValue) {
+      return b.scoreValue - a.scoreValue;
     }
     return a.playerName.localeCompare(b.playerName);
   });
@@ -111,12 +127,15 @@ export function getScores(): Scores {
  * @param newScores The new list of scores.
  * @returns The updated scores list or an error if the update fails.
  */
-export function updateScores(newScores: Scores): Scores | Error {
+export function updateScores(
+  newScores: Scores | ScoresWithCurrentInfo,
+): Scores | Error {
   if (!_isValidScoreList(newScores)) {
     return new Error('Invalid scores provided.');
   }
 
-  const sortedScores = _sortScores(newScores);
+  const cleanedScores = _removeCurrentScoreInformation(newScores);
+  const sortedScores = _sortScores(cleanedScores);
   const saveResult = _saveScores(sortedScores);
 
   if (saveResult instanceof Error) {
