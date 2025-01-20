@@ -37,7 +37,7 @@ function HomeScreen(): React.JSX.Element {
             marginTop: '15vh',
           }}
         >
-          <Title>Whock a mole</Title>
+          <Title>Whack a mole</Title>
           <Button onClick={startMatch} size="BIG">
             Start Game
           </Button>
