@@ -1,8 +1,8 @@
 import React from 'react';
-import { COLOR_PURPLE } from '../styles/colors';
+import { COLOR_PURPLE, COLOR_WHITE } from '../styles/colors';
 
 type TitleProps = {
-  /** The title text . */
+  /** The title text. */
   children: string;
 };
 
@@ -16,10 +16,10 @@ function Title({ children }: TitleProps): React.JSX.Element {
         fontSize: '8vw',
         textAlign: 'center',
         textShadow: `
-            -1px -1px 0 #FFFFFF,
-             1px -1px 0 #FFFFFF,
-            -1px  1px 0 #FFFFFF,
-             1px  1px 0 #FFFFFF`,
+            -1px -1px 0 ${COLOR_WHITE},
+             1px -1px 0 ${COLOR_WHITE},
+            -1px  1px 0 ${COLOR_WHITE},
+             1px  1px 0 ${COLOR_WHITE}`,
         color: COLOR_PURPLE,
       }}
     >
