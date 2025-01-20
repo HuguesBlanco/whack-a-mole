@@ -6,7 +6,9 @@ type TitleProps = {
   children: string;
 };
 
-/** A styled title component that renders a large, fancy header (h1). */
+/**
+ * A styled title component that renders a large, fancy header (h1).
+ */
 function Title({ children }: TitleProps): React.JSX.Element {
   return (
     <h1

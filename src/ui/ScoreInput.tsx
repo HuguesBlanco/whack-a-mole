@@ -3,13 +3,25 @@ import { COLOR_GREEN } from '../styles/colors';
 import { Score } from '../types';
 
 type ScoreInputProps = {
+  /** The score of the game that just ended. */
   currentScore: Score;
+
+  /** The ranking of the current score among all scores. */
   scoreRanking: number;
+
+  /** The name of the player who played the game. */
   playerName: string;
+
+  /** Callback to update the player's name. */
   setPlayerName: (newName: string) => void;
+
+  /** Indicates whether the score has already been saved. */
   isScoreSaved: boolean;
 };
 
+/**
+ * A component displaying the current score and allowing to enter your name.
+ */
 function ScoreInput({
   currentScore,
   scoreRanking,

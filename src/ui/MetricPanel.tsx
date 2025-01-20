@@ -15,7 +15,9 @@ type MerticPanelProps = {
   valueColor?: string;
 };
 
-/** Display a numeric value to the user (score, time, etc) */
+/**
+ * Display a numeric value to the user (score, time, etc)
+ */
 function MetricPanel({
   label,
   value,

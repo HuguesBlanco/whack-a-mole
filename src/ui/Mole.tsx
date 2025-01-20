@@ -9,7 +9,9 @@ type MoleProps = {
   onMoleHit: () => void;
 };
 
-/** A mole hole on the board, with possibly a mole visible in the hole. */
+/**
+ * A mole hole on the board, with possibly a mole visible in the hole.
+ */
 function Mole({ isUp, onMoleHit }: MoleProps): React.JSX.Element {
   const [isHit, setIsHit] = useState(false);
 

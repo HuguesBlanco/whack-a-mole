@@ -6,7 +6,9 @@ type PlayingFieldProps = {
   children: React.JSX.Element | React.JSX.Element[];
 };
 
-/** Display the field on which we play the game. The background. */
+/**
+ * Display the field on which we play the game. The background.
+ */
 function PlayingField({ children }: PlayingFieldProps): React.JSX.Element {
   return (
     <div
