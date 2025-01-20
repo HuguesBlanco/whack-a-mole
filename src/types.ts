@@ -4,6 +4,7 @@
 export type MoleData = {
   /** A unique ID */
   id: string;
+
   /** Is the mole visible in the hole ? */
   isUp: boolean;
 };
@@ -22,9 +23,12 @@ export type MolesGridData = MolesRowData[];
  * Represents the score of a single round.
  */
 export type Score = {
+  /** The unique ID of the score. */
   id: string;
+
   /** The name of the player. */
   playerName: string;
+
   /** The player's score. */
   scoreValue: number;
 };
