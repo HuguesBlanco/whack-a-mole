@@ -3,10 +3,15 @@ import { MolesGridData } from '../types';
 import Mole from './Mole';
 
 type MolesGridProps = {
+  /** The data needed to create the moles grid*/
   data: MolesGridData;
+  /** The callback executed when a mole is touched. */
   onMoleHit: () => void;
 };
 
+/**
+ * Display all the moles in a grid.
+ */
 function MolesGrid({ data, onMoleHit }: MolesGridProps): React.JSX.Element {
   return (
     <div
@@ -15,8 +20,11 @@ function MolesGrid({ data, onMoleHit }: MolesGridProps): React.JSX.Element {
         height: '60vh',
       }}
     >
-      {data.map((rowData, index) => {
-        const rowKey = rowData[index]?.id[1]; // TODO: Make a proper mechanism defining the row key.
+      {data.map((rowData) => {
+        const rowKey = rowData.reduce<string>((key, moleData) => {
+          const newKey = key + moleData.id;
+          return newKey;
+        }, '');
 
         return (
           <div
