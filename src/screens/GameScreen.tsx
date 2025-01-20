@@ -18,15 +18,15 @@ function GameScreen(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
   const dispatch = useDispatch<AppDispatch>();
 
-  const [isActive, triggerActivity] = useTemporaryActivity(500);
-
   const molesGridData = useMolesDataAtRandomInterval();
 
   useGameTimer();
 
+  const [isMoleHit, triggerMoleHitEvent] = useTemporaryActivity(500);
+
   const score = (): void => {
     dispatch(incrementScore());
-    triggerActivity();
+    triggerMoleHitEvent();
   };
 
   return (
@@ -84,7 +84,8 @@ function GameScreen(): React.JSX.Element {
           </div>
         </PlayingField>
       </div>
-      {isActive && (
+
+      {isMoleHit && (
         <div
           style={{
             position: 'absolute',
