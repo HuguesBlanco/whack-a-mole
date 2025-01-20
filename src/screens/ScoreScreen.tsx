@@ -1,7 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getScores, updateScores } from '../services/scoreServices';
-import { RootState } from '../store/store';
+import { startGame } from '../store/gameSlice';
+import { AppDispatch, RootState } from '../store/store';
 import { COLOR_PURPLE, COLOR_YELLOW } from '../styles/colors';
 import { ScoresWithCurrentInfo } from '../types';
 import Button from '../ui/Button';
@@ -13,6 +14,7 @@ import PlayingField from '../ui/PlayingField';
  */
 function ScoreScreen(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
+  const dispatch = useDispatch<AppDispatch>();
 
   const previousScores = getScores();
 
@@ -30,10 +32,11 @@ function ScoreScreen(): React.JSX.Element {
 
   const saveScore = (): void => {
     updateScores(newScores);
+    // Set new scores without current score
   };
 
   const startNewGame = (): void => {
-    console.log('New game');
+    dispatch(startGame());
   };
 
   return (
