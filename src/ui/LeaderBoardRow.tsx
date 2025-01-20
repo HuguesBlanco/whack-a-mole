@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { ReactElement } from 'react';
 import { COLOR_GREEN, COLOR_WHITE } from '../styles/colors';
 import { CurrentScore, Score } from '../types';
 import { isCurrentScore } from '../utils/scoreUtils';
 import Button from './Button';
-import TextInput from './TextInput';
 
 type LeaderBoardRowProps = {
   scoreData: Score | CurrentScore;
+  textInputComponent: ReactElement;
   onClickSave: () => void;
 };
 
@@ -15,10 +15,9 @@ type LeaderBoardRowProps = {
  */
 function LeaderBoardRow({
   scoreData,
+  textInputComponent,
   onClickSave,
 }: LeaderBoardRowProps): React.JSX.Element {
-  const [playerName, setPlayerName] = useState(scoreData.playerName);
-
   const isActiveScore = isCurrentScore(scoreData);
 
   return (
@@ -29,11 +28,7 @@ function LeaderBoardRow({
           border: `2px solid ${isActiveScore ? COLOR_GREEN : COLOR_WHITE}`,
         }}
       >
-        {isActiveScore ? (
-          <TextInput value={playerName} setValue={setPlayerName} />
-        ) : (
-          playerName
-        )}
+        {isActiveScore ? textInputComponent : scoreData.playerName}
       </td>
       <td
         style={{

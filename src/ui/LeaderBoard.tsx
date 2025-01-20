@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { COLOR_WHITE } from '../styles/colors';
 import { ScoresWithCurrentInfo } from '../types';
 import LeaderBoardRow from './LeaderBoardRow';
@@ -6,6 +6,7 @@ import LeaderBoardRow from './LeaderBoardRow';
 /** Table displaying the scores */
 type LeaderBoardProps = {
   scoresData: ScoresWithCurrentInfo;
+  textInputComponent: ReactElement;
   onClickSave: () => void;
 };
 
@@ -14,6 +15,7 @@ type LeaderBoardProps = {
  */
 function LeaderBoard({
   scoresData,
+  textInputComponent,
   onClickSave,
 }: LeaderBoardProps): React.JSX.Element {
   return (
@@ -37,6 +39,7 @@ function LeaderBoard({
           <LeaderBoardRow
             key={scoreData.id}
             scoreData={scoreData}
+            textInputComponent={textInputComponent}
             onClickSave={onClickSave}
           />
         ))}
