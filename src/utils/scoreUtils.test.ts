@@ -6,7 +6,7 @@ import {
   isValidScoreList,
   removeCurrentScoreInformation,
   sortScores,
-} from './scoreUtils'; // Update with the actual path to your file
+} from './scoreUtils';
 
 describe('Tests of isCurrentScore', () => {
   it('should return true when the object has the "isCurrent" property', () => {
