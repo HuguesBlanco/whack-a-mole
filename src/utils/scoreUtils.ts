@@ -23,7 +23,8 @@ export function isValidScore(value: unknown): value is Score {
   if (!('playerName' in value) || typeof value.playerName !== 'string')
     return false;
 
-  if (!('score' in value) || typeof value.score !== 'number') return false;
+  if (!('scoreValue' in value) || typeof value.scoreValue !== 'number')
+    return false;
 
   return true;
 }
