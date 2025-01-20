@@ -30,15 +30,17 @@ function LeaderBoard({
     >
       <thead>
         <tr>
+          <th>Ranking</th>
           <th>Name</th>
           <th>Score</th>
         </tr>
       </thead>
       <tbody>
-        {scoresData.map((scoreData) => (
+        {scoresData.map((scoreData, index) => (
           <LeaderBoardRow
             key={scoreData.id}
             scoreData={scoreData}
+            scoreRanking={index + 1}
             textInputComponent={textInputComponent}
             onClickSave={onClickSave}
           />

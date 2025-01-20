@@ -30,6 +30,8 @@ function ScoreScreen(): React.JSX.Element {
   const newScores = [...previousScores, currentScore];
   const newScoresSorted = sortScores(newScores);
 
+  const topThreeScores = newScoresSorted.slice(0, 3);
+
   const saveScore = (): void => {
     const scoresUpdatedOrError = updateScores(newScoresSorted);
 
@@ -67,7 +69,7 @@ function ScoreScreen(): React.JSX.Element {
         >
           <div style={{ marginBottom: '2rem' }}>
             <LeaderBoard
-              scoresData={newScoresSorted}
+              scoresData={topThreeScores}
               textInputComponent={
                 <TextInput value={playerName} setValue={setPlayerName} />
               }
