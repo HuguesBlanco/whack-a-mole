@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type GameState = {
+export type GameState = {
   status: 'INITIAL' | 'IN_PROGRESS' | 'ENDED';
   score: number;
   timeLeftInSeconds: number;
