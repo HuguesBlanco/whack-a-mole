@@ -7,6 +7,7 @@ type ScoreInputProps = {
   scoreRanking: number;
   playerName: string;
   setPlayerName: (newName: string) => void;
+  isScoreSaved: boolean;
 };
 
 function ScoreInput({
@@ -14,6 +15,7 @@ function ScoreInput({
   scoreRanking,
   playerName,
   setPlayerName,
+  isScoreSaved,
 }: ScoreInputProps): React.JSX.Element {
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -37,6 +39,7 @@ function ScoreInput({
             className="ranking"
             style={{
               width: '25%',
+              height: '2rem',
               padding: '1rem',
               border: `2px solid ${COLOR_GREEN}`,
             }}
@@ -47,21 +50,27 @@ function ScoreInput({
             className="name"
             style={{
               width: '50%',
+              height: '2rem',
               padding: '1rem',
               border: `2px solid ${COLOR_GREEN}`,
             }}
           >
-            <input
-              style={{ fontSize: '2rem' }}
-              type="text"
-              value={playerName}
-              onChange={handleNameChange}
-            />
+            {isScoreSaved ? (
+              currentScore.playerName
+            ) : (
+              <input
+                style={{ fontSize: '2rem' }}
+                type="text"
+                value={playerName}
+                onChange={handleNameChange}
+              />
+            )}
           </td>
           <td
             className="score"
             style={{
               width: '25%',
+              height: '2rem',
               padding: '1rem',
               border: `2px solid ${COLOR_GREEN}`,
             }}

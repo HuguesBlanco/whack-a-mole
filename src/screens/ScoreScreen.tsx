@@ -35,7 +35,7 @@ function ScoreScreen(): React.JSX.Element {
     id: scoreId,
     playerName: playerName,
     scoreValue: gameState.score,
-    ...(!isScoreSaved && { isCurrent: true }),
+    isCurrent: true,
   };
   const newScores = [...previousScores, currentScore];
   const newScoresSorted = sortScores(newScores);
@@ -95,25 +95,31 @@ function ScoreScreen(): React.JSX.Element {
               scoreRanking={currentScoreRanking}
               playerName={playerName}
               setPlayerName={setPlayerName}
+              isScoreSaved={isScoreSaved}
             />
           </div>
 
-          <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-            <Button onClick={saveScore} backgroundColor={COLOR_GREEN}>
-              Save score
-            </Button>
-          </div>
-
           <div
-            style={{
-              marginTop: '2rem',
-              marginBottom: '2rem',
-              textAlign: 'center',
-              color: COLOR_WHITE,
-              fontFamily: 'DynaPuff, serif',
-            }}
+            style={{ marginTop: '1rem', height: '12vh', textAlign: 'center' }}
           >
-            OR
+            {!isScoreSaved && (
+              <div>
+                <Button onClick={saveScore} backgroundColor={COLOR_GREEN}>
+                  Save score
+                </Button>
+                <div
+                  style={{
+                    marginTop: '1rem',
+                    marginBottom: '2rem',
+                    textAlign: 'center',
+                    color: COLOR_WHITE,
+                    fontFamily: 'DynaPuff, serif',
+                  }}
+                >
+                  OR
+                </div>
+              </div>
+            )}
           </div>
 
           <div style={{ textAlign: 'center' }}>
