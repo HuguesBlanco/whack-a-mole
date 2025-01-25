@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { Scores } from '../types';
+import { Scores } from '../types/scoreTypes';
 import { _fetchScores, _getMockedScores, _saveScores } from './scoreServices';
 
 describe('Score Utilities', () => {

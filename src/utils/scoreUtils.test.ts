@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { CurrentScore, Score, ScoresWithCurrentInfo } from '../types';
+import {
+  CurrentScore,
+  Score,
+  ScoresWithCurrentInfo,
+} from '../types/scoreTypes';
 import {
   isCurrentScore,
   isValidScore,

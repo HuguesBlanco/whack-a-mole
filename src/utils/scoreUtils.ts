@@ -1,4 +1,9 @@
-import { CurrentScore, Score, Scores, ScoresWithCurrentInfo } from '../types';
+import {
+  CurrentScore,
+  Score,
+  Scores,
+  ScoresWithCurrentInfo,
+} from '../types/scoreTypes';
 
 /**
  * Determines whether the provided value is a CurrentScore object.

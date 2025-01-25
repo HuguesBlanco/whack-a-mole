@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MolesGridData } from '../types';
+import { MolesGridData } from '../types/moleTypes';
 
 type MoleCoodinates = { rowId: number; columnId: string };
 

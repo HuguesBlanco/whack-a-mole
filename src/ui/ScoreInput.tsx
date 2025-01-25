@@ -1,6 +1,6 @@
 import React from 'react';
 import { COLOR_GREEN } from '../styles/colors';
-import { Score } from '../types';
+import { Score } from '../types/scoreTypes';
 
 type ScoreInputProps = {
   /** The score of the game that just ended. */

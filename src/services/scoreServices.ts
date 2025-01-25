@@ -1,4 +1,4 @@
-import { Scores, ScoresWithCurrentInfo } from '../types';
+import { Scores, ScoresWithCurrentInfo } from '../types/scoreTypes';
 import {
   isValidScoreList,
   removeCurrentScoreInformation,

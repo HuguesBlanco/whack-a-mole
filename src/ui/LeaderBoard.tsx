@@ -1,6 +1,10 @@
 import React from 'react';
 import { COLOR_GREEN, COLOR_WHITE } from '../styles/colors';
-import { CurrentScore, Score, ScoresWithCurrentInfo } from '../types';
+import {
+  CurrentScore,
+  Score,
+  ScoresWithCurrentInfo,
+} from '../types/scoreTypes';
 import { isCurrentScore } from '../utils/scoreUtils';
 
 /**
