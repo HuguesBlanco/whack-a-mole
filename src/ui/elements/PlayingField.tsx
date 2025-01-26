@@ -1,5 +1,5 @@
 import React from 'react';
-import fieldImageUrl from '../assets/field-background.jpg';
+import fieldImageUrl from '../../assets/field-background.jpg';
 
 type PlayingFieldProps = {
   /** The elements contained in the game board. */

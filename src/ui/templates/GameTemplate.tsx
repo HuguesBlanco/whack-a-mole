@@ -1,7 +1,7 @@
 import React from 'react';
+import hammerCursor from '../../assets/hammer-cursor-128x100.png';
 import { COLOR_PURPLE, COLOR_RED } from '../../styles/colors';
 import { MolesData } from '../../types/moleTypes';
-import hammerCursor from '../assets/hammer-cursor-128x100.png';
 import HitFeedback from '../elements/HitFeedback';
 import MetricPanel from '../elements/MetricPanel';
 import MolesGrid from '../elements/MolesGrid';

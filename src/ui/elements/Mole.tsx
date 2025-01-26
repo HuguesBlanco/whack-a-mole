@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import moleDownImagePath from '../assets/hole-mole-down.png';
-import moleUpImagePath from '../assets/hole-mole-up.png';
+import moleDownImagePath from '../../assets/hole-mole-down.png';
+import moleUpImagePath from '../../assets/hole-mole-up.png';
 
 type MoleProps = {
   /** Is the mole visible in the hole ? */
