@@ -1,7 +1,7 @@
-import { Scores, ScoresWithCurrentGameOne } from '../types/scoreTypes';
+import { Scores } from '../types/scoreTypes';
 import {
   isValidScoreList,
-  removeCurrentScoreInformation,
+  removeCurrentGameScoreInformation,
   sortScores,
 } from '../utils/scoreUtils';
 
@@ -80,14 +80,12 @@ export function getScores(): Scores {
  * @param newScores The new list of scores.
  * @returns The updated scores list or an error if the update fails.
  */
-export function updateScores(
-  newScores: Scores | ScoresWithCurrentGameOne,
-): Scores | Error {
+export function updateScores(newScores: Scores): Scores | Error {
   if (!isValidScoreList(newScores)) {
     return new Error('Invalid scores provided.');
   }
 
-  const cleanedScores = removeCurrentScoreInformation(newScores);
+  const cleanedScores = removeCurrentGameScoreInformation(newScores);
   const sortedScores = sortScores(cleanedScores);
   const saveResult = _saveScores(sortedScores);
 

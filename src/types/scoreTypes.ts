@@ -10,19 +10,12 @@ export type Score = {
 
   /** The player's score. */
   scoreValue: number;
+
+  /** Is the score the score of the current game ? */
+  isCurrentGameScore?: boolean;
 };
 
 /**
  * A collection of scores from the game.
  */
 export type Scores = Score[];
-
-/**
- *  The score of the game that was just finished.
- */
-export type CurrentGameScore = Score & { isCurrentGameScore: true };
-
-/**
- * The list of scores with one score marked as the one of the current game.
- */
-export type ScoresWithCurrentGameOne = (Score | CurrentGameScore)[];

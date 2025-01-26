@@ -5,10 +5,8 @@ import {
   COLOR_WHITE,
   COLOR_YELLOW,
 } from '../../styles/colors';
-import {
-  CurrentGameScore,
-  ScoresWithCurrentGameOne,
-} from '../../types/scoreTypes';
+
+import { Score, Scores } from '../../types/scoreTypes';
 import Button from '../elements/Button';
 import LeaderBoard from '../elements/LeaderBoard';
 import PlayingField from '../elements/PlayingField';
@@ -16,10 +14,10 @@ import ScoreInput from '../elements/ScoreInput';
 
 type ScoreTemplateProps = {
   /** List of scores to display on the leaderboard. */
-  displayedScores: ScoresWithCurrentGameOne;
+  displayedScores: Scores;
 
   /** The current player's score. */
-  currentScore: CurrentGameScore;
+  currentScore: Score;
 
   /** The rank of the current score among all scores. */
   currentScoreRanking: number;

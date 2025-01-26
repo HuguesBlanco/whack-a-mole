@@ -4,9 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { getScores, updateScores } from '../services/scoreServices';
 import { startGame } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
-import { CurrentGameScore } from '../types/scoreTypes';
+import { Score } from '../types/scoreTypes';
 import ScoreTemplate from '../ui/templates/ScoreTemplate';
-import { isCurrentGameScore, sortScores } from '../utils/scoreUtils';
+import { sortScores } from '../utils/scoreUtils';
 
 /**
  * Displays the final score screen at the end of the game.
@@ -20,7 +20,7 @@ function ScoreScreen(): React.JSX.Element {
   const scoreId = useMemo(() => uuidv4(), []);
   const [playerName, setPlayerName] = useState('');
   const [isScoreSaved, setIsScoreSaved] = useState(false);
-  const currentScore: CurrentGameScore = {
+  const currentScore: Score = {
     id: scoreId,
     playerName: playerName,
     scoreValue: gameState.score,
@@ -31,8 +31,8 @@ function ScoreScreen(): React.JSX.Element {
 
   const topThreeScores = newScoresSorted.slice(0, 3);
 
-  const currentScoreIndex = newScoresSorted.findIndex((score) =>
-    isCurrentGameScore(score),
+  const currentScoreIndex = newScoresSorted.findIndex(
+    (score) => score.isCurrentGameScore === true,
   );
   const currentScoreRanking = currentScoreIndex + 1;
 

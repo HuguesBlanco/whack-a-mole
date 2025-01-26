@@ -1,21 +1,15 @@
 import React from 'react';
 import { COLOR_GREEN, COLOR_WHITE } from '../../styles/colors';
-import {
-  CurrentGameScore,
-  Score,
-  ScoresWithCurrentGameOne,
-} from '../../types/scoreTypes';
-import { isCurrentGameScore } from '../../utils/scoreUtils';
+import { Score, Scores } from '../../types/scoreTypes';
 
 /**
  * Generate the CSS styles for the table cells (td).
  * @param scoreData The data of the score displayed in the cell.
  * @returns An object containing the CSS styles of the td.
  */
-function generateCellStyles(
-  scoreData: Score | CurrentGameScore,
-): React.CSSProperties {
-  const borderColor = isCurrentGameScore(scoreData) ? COLOR_GREEN : COLOR_WHITE;
+function generateCellStyles(scoreData: Score): React.CSSProperties {
+  const borderColor =
+    scoreData.isCurrentGameScore === true ? COLOR_GREEN : COLOR_WHITE;
 
   return {
     padding: '1rem',
@@ -26,7 +20,7 @@ function generateCellStyles(
 /** Table displaying the scores. */
 type LeaderBoardProps = {
   /** The data of the scores displayed in the board. */
-  scoresData: ScoresWithCurrentGameOne;
+  scoresData: Scores;
 };
 
 /**
