@@ -5,7 +5,7 @@ import {
   Score,
   ScoresWithCurrentGameOne,
 } from '../../types/scoreTypes';
-import { isCurrentScore } from '../../utils/scoreUtils';
+import { isCurrentGameScore } from '../../utils/scoreUtils';
 
 /**
  * Generate the CSS styles for the table cells (td).
@@ -15,7 +15,7 @@ import { isCurrentScore } from '../../utils/scoreUtils';
 function generateCellStyles(
   scoreData: Score | CurrentGameScore,
 ): React.CSSProperties {
-  const borderColor = isCurrentScore(scoreData) ? COLOR_GREEN : COLOR_WHITE;
+  const borderColor = isCurrentGameScore(scoreData) ? COLOR_GREEN : COLOR_WHITE;
 
   return {
     padding: '1rem',

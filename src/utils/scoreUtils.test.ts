@@ -2,34 +2,35 @@ import { describe, expect, it } from 'vitest';
 import {
   CurrentGameScore,
   Score,
+  Scores,
   ScoresWithCurrentGameOne,
 } from '../types/scoreTypes';
 import {
-  isCurrentScore,
+  isCurrentGameScore,
   isValidScore,
   isValidScoreList,
   removeCurrentScoreInformation,
   sortScores,
 } from './scoreUtils';
 
-describe('Tests of isCurrentScore', () => {
-  it('should return true when the object has the "isCurrent" property', () => {
+describe('Tests of isCurrentGameScore', () => {
+  it('should return true when the object is the current game score', () => {
     const initialScore: CurrentGameScore = {
       id: '1',
       playerName: 'John',
       scoreValue: 100,
       isCurrentGameScore: true,
     };
-    expect(isCurrentScore(initialScore)).toBe(true);
+    expect(isCurrentGameScore(initialScore)).toBe(true);
   });
 
-  it('should return false when the object lacks the "isCurrent" property', () => {
+  it('should return false when the object is not the current game score', () => {
     const initialScore: Score = {
       id: '1',
       playerName: 'John',
       scoreValue: 100,
     };
-    expect(isCurrentScore(initialScore)).toBe(false);
+    expect(isCurrentGameScore(initialScore)).toBe(false);
   });
 });
 
@@ -41,6 +42,16 @@ describe('Tests if isValidScore', () => {
       scoreValue: 200,
     };
     expect(isValidScore(initialScore)).toBe(true);
+  });
+
+  it('should return true for a valid CurrentGameScore object', () => {
+    const initialCurrentGameScore: CurrentGameScore = {
+      id: '2',
+      playerName: 'Bob',
+      scoreValue: 145,
+      isCurrentGameScore: true,
+    };
+    expect(isValidScore(initialCurrentGameScore)).toBe(true);
   });
 
   it('should return false for an object missing required properties', () => {
@@ -59,9 +70,23 @@ describe('Tests if isValidScore', () => {
 
 describe('Tests of isValidScoreList', () => {
   it('should return true for a valid list of Score objects', () => {
-    const initialScores = [
+    const initialScores: Scores = [
       { id: '1', playerName: 'Alice', scoreValue: 100 },
       { id: '2', playerName: 'Bob', scoreValue: 200 },
+    ];
+    expect(isValidScoreList(initialScores)).toBe(true);
+  });
+
+  it('should return true for a valid list of Score objects', () => {
+    const initialScores: ScoresWithCurrentGameOne = [
+      { id: '1', playerName: 'Alice', scoreValue: 100 },
+      { id: '2', playerName: 'Bob', scoreValue: 200 },
+      {
+        id: '3',
+        playerName: 'Jane',
+        scoreValue: 329,
+        isCurrentGameScore: true,
+      },
     ];
     expect(isValidScoreList(initialScores)).toBe(true);
   });

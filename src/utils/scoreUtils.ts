@@ -10,17 +10,17 @@ import {
  * @param score The score object to test.
  * @returns true if the score is the one of the current game, otherwise false.
  */
-export function isCurrentScore(
+export function isCurrentGameScore(
   score: Score | CurrentGameScore,
 ): score is CurrentGameScore {
-  if ('isCurrent' in score) {
+  if ('isCurrentGameScore' in score) {
     return true;
   }
   return false;
 }
 
 /**
- * Tells if a value is a vilid score.
+ * Tells if a value is a valid score.
  * @param value The value to check.
  * @returns True if the value is a valid Score, false otherwise.
  */

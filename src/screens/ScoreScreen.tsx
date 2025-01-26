@@ -6,7 +6,7 @@ import { startGame } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
 import { CurrentGameScore } from '../types/scoreTypes';
 import ScoreTemplate from '../ui/templates/ScoreTemplate';
-import { isCurrentScore, sortScores } from '../utils/scoreUtils';
+import { isCurrentGameScore, sortScores } from '../utils/scoreUtils';
 
 /**
  * Displays the final score screen at the end of the game.
@@ -32,7 +32,7 @@ function ScoreScreen(): React.JSX.Element {
   const topThreeScores = newScoresSorted.slice(0, 3);
 
   const currentScoreIndex = newScoresSorted.findIndex((score) =>
-    isCurrentScore(score),
+    isCurrentGameScore(score),
   );
   const currentScoreRanking = currentScoreIndex + 1;
 
