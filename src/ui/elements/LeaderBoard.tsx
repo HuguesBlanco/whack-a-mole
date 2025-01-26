@@ -1,9 +1,9 @@
 import React from 'react';
 import { COLOR_GREEN, COLOR_WHITE } from '../../styles/colors';
 import {
-  CurrentScore,
+  CurrentGameScore,
   Score,
-  ScoresWithCurrentInfo,
+  ScoresWithCurrentGameOne,
 } from '../../types/scoreTypes';
 import { isCurrentScore } from '../../utils/scoreUtils';
 
@@ -13,7 +13,7 @@ import { isCurrentScore } from '../../utils/scoreUtils';
  * @returns An object containing the CSS styles of the td.
  */
 function generateCellStyles(
-  scoreData: Score | CurrentScore,
+  scoreData: Score | CurrentGameScore,
 ): React.CSSProperties {
   const borderColor = isCurrentScore(scoreData) ? COLOR_GREEN : COLOR_WHITE;
 
@@ -26,7 +26,7 @@ function generateCellStyles(
 /** Table displaying the scores. */
 type LeaderBoardProps = {
   /** The data of the scores displayed in the board. */
-  scoresData: ScoresWithCurrentInfo;
+  scoresData: ScoresWithCurrentGameOne;
 };
 
 /**

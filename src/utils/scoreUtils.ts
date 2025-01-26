@@ -1,8 +1,8 @@
 import {
-  CurrentScore,
+  CurrentGameScore,
   Score,
   Scores,
-  ScoresWithCurrentInfo,
+  ScoresWithCurrentGameOne,
 } from '../types/scoreTypes';
 
 /**
@@ -12,8 +12,8 @@ import {
  */
 
 export function isCurrentScore(
-  score: Score | CurrentScore,
-): score is CurrentScore {
+  score: Score | CurrentGameScore,
+): score is CurrentGameScore {
   if ('isCurrent' in score) {
     return true;
   }
@@ -55,7 +55,7 @@ export function isValidScoreList(value: unknown): boolean {
  * @returns The list of scores without current score information.
  */
 export function removeCurrentScoreInformation(
-  scores: ScoresWithCurrentInfo,
+  scores: ScoresWithCurrentGameOne,
 ): Scores {
   return scores.map((score) => ({
     id: score.id,

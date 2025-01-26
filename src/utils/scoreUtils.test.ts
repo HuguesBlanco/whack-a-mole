@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
-  CurrentScore,
+  CurrentGameScore,
   Score,
-  ScoresWithCurrentInfo,
+  ScoresWithCurrentGameOne,
 } from '../types/scoreTypes';
 import {
   isCurrentScore,
@@ -14,11 +14,11 @@ import {
 
 describe('Tests of isCurrentScore', () => {
   it('should return true when the object has the "isCurrent" property', () => {
-    const initialScore: CurrentScore = {
+    const initialScore: CurrentGameScore = {
       id: '1',
       playerName: 'John',
       scoreValue: 100,
-      isCurrent: true,
+      isCurrentGameScore: true,
     };
     expect(isCurrentScore(initialScore)).toBe(true);
   });
@@ -82,8 +82,13 @@ describe('Tests of isValidScoreList', () => {
 
 describe('Tests of removeCurrentScoreInformation', () => {
   it('should remove the "isCurrent" property from scores', () => {
-    const initialScores: ScoresWithCurrentInfo = [
-      { id: '1', playerName: 'Alice', scoreValue: 100, isCurrent: true },
+    const initialScores: ScoresWithCurrentGameOne = [
+      {
+        id: '1',
+        playerName: 'Alice',
+        scoreValue: 100,
+        isCurrentGameScore: true,
+      },
       { id: '2', playerName: 'Bob', scoreValue: 200 },
     ];
     const expectedScores = [

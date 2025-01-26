@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getScores, updateScores } from '../services/scoreServices';
 import { startGame } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
-import { CurrentScore } from '../types/scoreTypes';
+import { CurrentGameScore } from '../types/scoreTypes';
 import ScoreTemplate from '../ui/templates/ScoreTemplate';
 import { isCurrentScore, sortScores } from '../utils/scoreUtils';
 
@@ -20,11 +20,11 @@ function ScoreScreen(): React.JSX.Element {
   const scoreId = useMemo(() => uuidv4(), []);
   const [playerName, setPlayerName] = useState('');
   const [isScoreSaved, setIsScoreSaved] = useState(false);
-  const currentScore: CurrentScore = {
+  const currentScore: CurrentGameScore = {
     id: scoreId,
     playerName: playerName,
     scoreValue: gameState.score,
-    isCurrent: true,
+    isCurrentGameScore: true,
   };
   const newScores = [...previousScores, currentScore];
   const newScoresSorted = sortScores(newScores);

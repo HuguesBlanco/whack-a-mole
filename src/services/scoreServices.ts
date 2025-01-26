@@ -1,4 +1,4 @@
-import { Scores, ScoresWithCurrentInfo } from '../types/scoreTypes';
+import { Scores, ScoresWithCurrentGameOne } from '../types/scoreTypes';
 import {
   isValidScoreList,
   removeCurrentScoreInformation,
@@ -81,7 +81,7 @@ export function getScores(): Scores {
  * @returns The updated scores list or an error if the update fails.
  */
 export function updateScores(
-  newScores: Scores | ScoresWithCurrentInfo,
+  newScores: Scores | ScoresWithCurrentGameOne,
 ): Scores | Error {
   if (!isValidScoreList(newScores)) {
     return new Error('Invalid scores provided.');
