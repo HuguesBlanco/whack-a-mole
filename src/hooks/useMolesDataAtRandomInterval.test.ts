@@ -1,67 +1,65 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
-  _COLUMN_IDS,
-  _generateMolesGridData,
-  _getMoleUpCoordinates,
-  _getRandomDelay,
-  _ROW_IDS,
+  _generateMolesData,
+  _getActiveMoleIndex,
+  _getRandomDelayInMilliseconds,
 } from './useMolesDataAtRandomInterval';
 
-describe('Tests of _getMoleUpCoordinates function', () => {
-  it('should return valid coordinates within the range of _ROW_IDS and _COLUMN_IDS', () => {
-    const actualCoordinates = _getMoleUpCoordinates();
+describe('Tests of _getActiveMoleIndex function', () => {
+  it('should return a random integer between 0 and 11 if the number of mole is 12', () => {
+    const totalNumberOfMoles = 12;
+    const actualIndex = _getActiveMoleIndex(totalNumberOfMoles);
 
-    expect(_ROW_IDS).toContain(actualCoordinates.rowId);
-    expect(_COLUMN_IDS).toContain(actualCoordinates.columnId);
+    const isInteger = Number.isInteger(actualIndex);
+    expect(isInteger).toBe(true);
+
+    expect(actualIndex).toBeGreaterThanOrEqual(0);
+    expect(actualIndex).toBeLessThanOrEqual(11);
   });
 });
 
-describe('Tests of _generateMolesGridData function', () => {
-  it('should generate grid data with correct IDs and mole visibility', () => {
-    const moleUpCoordinates = { rowId: 2, columnId: 'B' };
-    const actualGridData = _generateMolesGridData(moleUpCoordinates);
+describe('Tests of _generateMolesData function', () => {
+  it('should generate data with correct IDs and mole visibility types', () => {
+    const totalNumberOfMoles = 5;
+    const moleUpIndex = 2;
+    const actualMolesData = _generateMolesData(totalNumberOfMoles, moleUpIndex);
 
-    expect(actualGridData.length).toBe(_ROW_IDS.length);
+    expect(actualMolesData.length).toBe(totalNumberOfMoles);
 
-    const flattenedGrid = actualGridData.flat();
-    expect(flattenedGrid.length).toBe(_ROW_IDS.length * _COLUMN_IDS.length);
-
-    flattenedGrid.forEach((moleData) => {
+    actualMolesData.forEach((moleData) => {
       expect(typeof moleData.id).toBe('string');
       expect(typeof moleData.isUp).toBe('boolean');
     });
+
+    const molesUp = actualMolesData.filter((moleDatum) => moleDatum.isUp);
+    expect(molesUp.length).toBe(1);
   });
 
-  it('should generate all grid IDs regardless of the mole coordinates', () => {
-    const actualGridData = _generateMolesGridData({
-      rowId: 999,
-      columnId: 'Z',
-    });
+  it('should generate data with only one mole up', () => {
+    const totalNumberOfMoles = 34;
+    const moleUpIndex = 23;
+    const actualMolesData = _generateMolesData(totalNumberOfMoles, moleUpIndex);
 
-    const flattenedGrid = actualGridData.flat();
-
-    flattenedGrid.forEach(({ id }) => {
-      const [columnId, rowId] = [id[0], Number(id.slice(1))];
-      expect(_COLUMN_IDS).toContain(columnId);
-      expect(_ROW_IDS).toContain(rowId);
-    });
+    const molesUp = actualMolesData.filter((moleDatum) => moleDatum.isUp);
+    expect(molesUp.length).toBe(1);
   });
 
-  it('should define as up the mole with the passed coordinates', () => {
-    const moleUpCoordinates = { rowId: 2, columnId: 'B' };
-    const actualGridData = _generateMolesGridData(moleUpCoordinates);
+  it('should define the passed index as mole up', () => {
+    const totalNumberOfMoles = 34;
+    const moleUpIndex = 9;
+    const actualMolesData = _generateMolesData(totalNumberOfMoles, moleUpIndex);
 
-    const expectedMoleUpData = actualGridData
-      .flat()
-      .find((moleData) => moleData.id === 'B2');
+    const expectedMoleUpDatum = actualMolesData.find(
+      (moleDatum) => moleDatum.isUp,
+    );
 
-    expect(expectedMoleUpData?.isUp).toBe(true);
+    expect(expectedMoleUpDatum?.id).toBe(String(moleUpIndex));
   });
 });
 
 describe('Tests of _getRandomDelay function', () => {
   it('should return a number between 500 and 2500 milliseconds', () => {
-    const actualDelay = _getRandomDelay();
+    const actualDelay = _getRandomDelayInMilliseconds();
 
     expect(actualDelay).toBeGreaterThanOrEqual(500);
     expect(actualDelay).toBeLessThanOrEqual(2500);
@@ -70,15 +68,14 @@ describe('Tests of _getRandomDelay function', () => {
   it('should produce a uniform random value within the defined range', () => {
     const mockMathRandom = vi.spyOn<typeof Math, 'random'>(Math, 'random');
 
-    // Mock random values and verify results
     mockMathRandom.mockReturnValue(0);
-    expect(_getRandomDelay()).toBe(500);
+    expect(_getRandomDelayInMilliseconds()).toBe(500);
 
     mockMathRandom.mockReturnValue(1);
-    expect(_getRandomDelay()).toBe(2500);
+    expect(_getRandomDelayInMilliseconds()).toBe(2500);
 
     mockMathRandom.mockReturnValue(0.2);
-    expect(_getRandomDelay()).toBe(900);
+    expect(_getRandomDelayInMilliseconds()).toBe(900);
 
     mockMathRandom.mockRestore();
   });

@@ -10,11 +10,6 @@ export type MoleData = {
 };
 
 /**
- * Represent a row of moles.
- */
-export type MolesRowData = MoleData[];
-
-/**
  * Represent all the moles of the game.
  */
-export type MolesGridData = MolesRowData[];
+export type MolesData = MoleData[];

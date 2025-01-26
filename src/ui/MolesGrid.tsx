@@ -1,10 +1,10 @@
 import React from 'react';
-import { MolesGridData } from '../types/moleTypes';
+import { MolesData } from '../types/moleTypes';
 import Mole from './Mole';
 
 type MolesGridProps = {
   /** The data needed to create the moles grid*/
-  data: MolesGridData;
+  molesData: MolesData;
   /** The callback executed when a mole is touched. */
   onMoleHit: () => void;
 };
@@ -12,42 +12,25 @@ type MolesGridProps = {
 /**
  * Display all the moles in a grid.
  */
-function MolesGrid({ data, onMoleHit }: MolesGridProps): React.JSX.Element {
+function MolesGrid({
+  molesData,
+  onMoleHit,
+}: MolesGridProps): React.JSX.Element {
   return (
     <div
       style={{
         width: '60vw',
         height: '60vh',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gridTemplateRows: 'repeat(3, auto)',
       }}
     >
-      {data.map((rowData) => {
-        const rowKey = rowData.reduce<string>((key, moleData) => {
-          const newKey = key + moleData.id;
-          return newKey;
-        }, '');
-
-        return (
-          <div
-            className="row"
-            key={rowKey}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            {rowData.map((moleData) => (
-              <div
-                className="cell"
-                key={moleData.id}
-                style={{ width: '15vw', height: '20vh' }}
-              >
-                <Mole isUp={moleData.isUp} onMoleHit={onMoleHit} />
-              </div>
-            ))}
-          </div>
-        );
-      })}
+      {molesData.map((moleDatum) => (
+        <div key={moleDatum.id}>
+          <Mole isUp={moleDatum.isUp} onMoleHit={onMoleHit} />
+        </div>
+      ))}
     </div>
   );
 }

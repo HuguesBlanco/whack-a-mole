@@ -1,55 +1,48 @@
 import { useEffect, useState } from 'react';
-import { MolesGridData } from '../types/moleTypes';
-
-type MoleCoodinates = { rowId: number; columnId: string };
-
-export const _ROW_IDS = [1, 2, 3];
-export const _COLUMN_IDS = ['A', 'B', 'C', 'D'];
+import { MolesData } from '../types/moleTypes';
 
 /**
- * Generates the coordinates of the visible mole in the grid.
+ * Returns the index of a random mole that is visible.
  *
- * @returns An object containing the row and column identifiers for the visible mole.
+ * @param allMolesCount The total number of moles.
+ * @returns The index of the visible mole.
  */
-export function _getMoleUpCoordinates(): MoleCoodinates {
-  const selectedRow = Math.floor(Math.random() * _ROW_IDS.length);
-  const selectedColumn = Math.floor(Math.random() * _COLUMN_IDS.length);
+export function _getActiveMoleIndex(allMolesCount: number): number {
+  const maxIndex = allMolesCount - 1;
 
-  return {
-    // Default to 1 an "A" but that's just because TypeScript doesn't understand that the retrieved value can only be defined, as the index comes from ROW_IDS.length and COLUMN_IDS.length.
-    rowId: _ROW_IDS[selectedRow] ?? 1,
-    columnId: _COLUMN_IDS[selectedColumn] ?? 'A',
-  };
+  return Math.floor(Math.random() * maxIndex);
 }
 
 /**
- * Creates data for a grid of mole holes, ensuring one hole contains a visible mole.
+ * Creates data for all mole holes, marking one hole as containing a visible mole.
  *
- * @returns The grid data with mole hole information, including the ID of the hole and which hole has the mole visible.
+ * @param allMolesCount The total number of moles.
+ * @param activeMoleIndex The index of the hole containing the visible mole.
+ * @returns An array of objects representing the mole holes. Each object includes the hole ID and visibility status.
  */
-export function _generateMolesGridData(
-  moleUpCoordinates: MoleCoodinates,
-): MolesGridData {
-  return _ROW_IDS.map((rowId) =>
-    _COLUMN_IDS.map((columnId) => {
-      const id = columnId + String(rowId);
-
-      const isMoleUp =
-        rowId === moleUpCoordinates.rowId &&
-        columnId === moleUpCoordinates.columnId;
-
-      return {
-        id,
-        isUp: isMoleUp,
-      };
-    }),
+export function _generateMolesData(
+  allMolesCount: number,
+  activeMoleIndex: number,
+): MolesData {
+  const moleIndexes = Array.from(
+    { length: allMolesCount },
+    (_, index) => index,
   );
+
+  return moleIndexes.map((moleIndex) => {
+    return {
+      id: String(moleIndex),
+      isUp: moleIndex === activeMoleIndex,
+    };
+  });
 }
 
 /**
  * Generates a random delay time between 500 milliseconds and 2.5 seconds.
+ *
+ * @returns A random delay in milliseconds.
  */
-export function _getRandomDelay(): number {
+export function _getRandomDelayInMilliseconds(): number {
   const minimalDelay = 500;
   const maximalDelay = 2500;
 
@@ -59,27 +52,31 @@ export function _getRandomDelay(): number {
 }
 
 /**
- * Hook to provide moles grid data, updated at random intervals.
+ * A custom hook that provides mole hole data, updated at random intervals.
+ *
+ * @returns An array representing the current mole holes data. Each object includes the hole ID and visibility status.
  */
-export function useMolesDataAtRandomInterval(): MolesGridData {
-  const [molesGridData, setMolesGridData] = useState<MolesGridData>(() => {
-    const moleUpCoordinates = _getMoleUpCoordinates();
-    return _generateMolesGridData(moleUpCoordinates);
+export function useMolesDataAtRandomInterval(): MolesData {
+  const ALL_MOLES_COUNT = 12;
+
+  const [molesData, setMolesGridData] = useState<MolesData>(() => {
+    const activeMoleIndex = _getActiveMoleIndex(ALL_MOLES_COUNT);
+    return _generateMolesData(ALL_MOLES_COUNT, activeMoleIndex);
   });
 
   useEffect(() => {
-    const delayBeforeGeneration = _getRandomDelay();
+    const delayBeforeGeneration = _getRandomDelayInMilliseconds();
 
     const timeoutId = setTimeout(() => {
-      const moleUpCoordinates = _getMoleUpCoordinates();
-      const newMolesGridData = _generateMolesGridData(moleUpCoordinates);
-      setMolesGridData(newMolesGridData);
+      const activeMoleIndex = _getActiveMoleIndex(ALL_MOLES_COUNT);
+      const newMolesData = _generateMolesData(ALL_MOLES_COUNT, activeMoleIndex);
+      setMolesGridData(newMolesData);
     }, delayBeforeGeneration);
 
     return (): void => {
       clearTimeout(timeoutId);
     };
-  }, [molesGridData]);
+  }, [molesData]);
 
-  return molesGridData;
+  return molesData;
 }

@@ -80,7 +80,7 @@ function GameScreen(): React.JSX.Element {
               alignItems: 'center',
             }}
           >
-            <MolesGrid data={molesGridData} onMoleHit={score} />
+            <MolesGrid molesData={molesGridData} onMoleHit={score} />
           </div>
         </PlayingField>
       </div>
