@@ -23,6 +23,6 @@ export type Scores = Score[];
 export type CurrentScore = Score & { isCurrent?: true };
 
 /**
- * The list of scores with one score marked as current.
+ * The list of scores with one score marked as the one of the current game.
  */
 export type ScoresWithCurrentInfo = (Score | CurrentScore)[];

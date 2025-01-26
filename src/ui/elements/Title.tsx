@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLOR_PURPLE, COLOR_WHITE } from '../styles/colors';
+import { COLOR_PURPLE, COLOR_WHITE } from '../../styles/colors';
 
 type TitleProps = {
   /** The title text. */

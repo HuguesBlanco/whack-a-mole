@@ -1,5 +1,5 @@
 import React from 'react';
-import { MolesData } from '../types/moleTypes';
+import { MolesData } from '../../types/moleTypes';
 import Mole from './Mole';
 
 type MolesGridProps = {

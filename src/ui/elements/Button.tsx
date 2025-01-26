@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLOR_PURPLE, COLOR_RED } from '../styles/colors';
+import { COLOR_PURPLE, COLOR_RED } from '../../styles/colors';
 
 type ButtonProps = {
   /** The text in the button. */

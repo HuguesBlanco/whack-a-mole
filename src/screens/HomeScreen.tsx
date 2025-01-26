@@ -1,13 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { startGame } from '../store/gameSlice';
 import { AppDispatch } from '../store/store';
-import { COLOR_YELLOW } from '../styles/colors';
-import Button from '../ui/Button';
-import PlayingField from '../ui/PlayingField';
-import Title from '../ui/Title';
+import HomeTemplate from '../ui/templates/HomeTemplate';
 
 /**
- * The initial screen of the game, displayed before starting the game.
+ * The initial screen of the game, with a start button, displayed before starting the game.
  */
 function HomeScreen(): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,35 +13,7 @@ function HomeScreen(): React.JSX.Element {
     dispatch(startGame());
   };
 
-  return (
-    <PlayingField>
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          overflow: 'hidden',
-          backgroundColor: COLOR_YELLOW,
-          opacity: 0.8,
-        }}
-      >
-        <div
-          style={{
-            opacity: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: '15vh',
-          }}
-        >
-          <Title>Whack a mole</Title>
-          <Button onClick={startMatch} size="BIG">
-            Start Game
-          </Button>
-        </div>
-      </div>
-    </PlayingField>
-  );
+  return <HomeTemplate onClickStart={startMatch} />;
 }
 
 export default HomeScreen;

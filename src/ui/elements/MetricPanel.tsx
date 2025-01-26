@@ -1,5 +1,5 @@
 import React from 'react';
-import { COLOR_BLACK, COLOR_WHITE } from '../styles/colors';
+import { COLOR_BLACK, COLOR_WHITE } from '../../styles/colors';
 
 type MerticPanelProps = {
   /** The label defining the value */
