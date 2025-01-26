@@ -10,19 +10,14 @@ import {
  */
 const LOCAL_STORAGE_KEY = 'gameScores';
 
-/**
- * Provides a mocked set of scores for initial data.
- * @returns A predefined list of scores.
- */
-export function _getMockedScores(): Scores {
-  return [
-    { playerName: 'Alice', scoreValue: 10, id: 'mock01' },
-    { playerName: 'Bob', scoreValue: 5, id: 'mock02' },
-    { playerName: 'Charlie', scoreValue: 8, id: 'mock03' },
-    { playerName: 'Jane', scoreValue: 5, id: 'mock04' },
-    { playerName: 'John', scoreValue: 14, id: 'mock05' },
-  ];
-}
+/** A mocked set of scores for initial data. */
+const MOCKED_SCORE: Scores = [
+  { playerName: 'Alice', scoreValue: 10, id: 'mock01' },
+  { playerName: 'Bob', scoreValue: 5, id: 'mock02' },
+  { playerName: 'Charlie', scoreValue: 8, id: 'mock03' },
+  { playerName: 'Jane', scoreValue: 5, id: 'mock04' },
+  { playerName: 'John', scoreValue: 14, id: 'mock05' },
+] as const;
 
 /**
  * Retrieves the score list.
@@ -67,9 +62,8 @@ export function getScores(): Scores {
   const fetchedScores = _fetchScores();
 
   if (fetchedScores instanceof Error || !isValidScoreList(fetchedScores)) {
-    const mockedScores = _getMockedScores();
-    _saveScores(mockedScores);
-    return sortScores(mockedScores);
+    _saveScores(MOCKED_SCORE);
+    return sortScores(MOCKED_SCORE);
   }
 
   return sortScores(fetchedScores);

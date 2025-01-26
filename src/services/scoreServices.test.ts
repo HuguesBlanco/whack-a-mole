@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Scores } from '../types/scoreTypes';
-import { _fetchScores, _getMockedScores, _saveScores } from './scoreServices';
+import { _fetchScores, _saveScores } from './scoreServices';
 
 describe('Score Utilities', () => {
   const LOCAL_STORAGE_KEY = 'gameScores';
@@ -16,22 +16,6 @@ describe('Score Utilities', () => {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       clear: vi.fn(() => {}),
     } as unknown as Storage;
-  });
-
-  describe('Tests of _getMockedScores', () => {
-    it('should return a predefined list of mocked scores', () => {
-      const expectedScores = [
-        { playerName: 'Alice', scoreValue: 10, id: 'mock01' },
-        { playerName: 'Bob', scoreValue: 5, id: 'mock02' },
-        { playerName: 'Charlie', scoreValue: 8, id: 'mock03' },
-        { playerName: 'Jane', scoreValue: 5, id: 'mock04' },
-        { playerName: 'John', scoreValue: 14, id: 'mock05' },
-      ];
-
-      const actualScores = _getMockedScores();
-
-      expect(actualScores).toEqual(expectedScores);
-    });
   });
 
   describe('Tests of _fetchScores', () => {
