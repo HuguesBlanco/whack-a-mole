@@ -20,7 +20,7 @@ export type Scores = Score[];
 /**
  *  The score of the game that was just finished.
  */
-export type CurrentGameScore = Score & { isCurrentGameScore?: true };
+export type CurrentGameScore = Score & { isCurrentGameScore: true };
 
 /**
  * The list of scores with one score marked as the one of the current game.
