@@ -7,7 +7,7 @@ import {
   saveScores,
 } from './scoreServices';
 
-describe('Scores services', () => {
+describe('Score services', () => {
   beforeEach(() => {
     vi.stubGlobal('localStorage', {
       getItem: vi.fn(),
