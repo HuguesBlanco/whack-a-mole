@@ -23,7 +23,7 @@ function MolesGrid({
         height: '60vh',
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: 'repeat(3, auto)',
+        gridTemplateRows: 'repeat(3, 20vh)',
       }}
     >
       {molesData.map((moleDatum) => (
