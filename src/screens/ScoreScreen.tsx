@@ -77,7 +77,6 @@ function ScoreScreen(): React.JSX.Element {
       displayedScores={topThreeScores}
       currentScore={currentScore}
       currentScoreRanking={currentScoreRanking}
-      playerName={playerName}
       setPlayerName={setPlayerName}
       isCurrentScoreSaved={isScoreSaved}
       onClickSaveCurrentScore={saveCurrentGameScore}

@@ -9,9 +9,6 @@ type ScoreInputProps = {
   /** The ranking of the current score among all scores. */
   scoreRanking: number;
 
-  /** The name of the player who played the game. */
-  playerName: string;
-
   /** Callback to update the player's name. */
   setPlayerName: (newName: string) => void;
 
@@ -25,7 +22,6 @@ type ScoreInputProps = {
 function ScoreInput({
   currentScore,
   scoreRanking,
-  playerName,
   setPlayerName,
   isScoreSaved,
 }: ScoreInputProps): React.JSX.Element {
@@ -77,7 +73,7 @@ function ScoreInput({
                   boxSizing: 'border-box',
                 }}
                 type="text"
-                value={playerName}
+                value={currentScore.playerName}
                 onChange={handleNameChange}
               />
             )}

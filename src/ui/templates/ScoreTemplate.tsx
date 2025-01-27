@@ -22,9 +22,6 @@ type ScoreTemplateProps = {
   /** The rank of the current score among all scores. */
   currentScoreRanking: number;
 
-  /** The name of the current player. */
-  playerName: string;
-
   /** Updates the current player's name. */
   setPlayerName: (playerName: string) => void;
 
@@ -45,7 +42,6 @@ function ScoreTemplate({
   displayedScores,
   currentScore,
   currentScoreRanking,
-  playerName,
   setPlayerName,
   isCurrentScoreSaved,
   onClickSaveCurrentScore,
@@ -77,7 +73,6 @@ function ScoreTemplate({
             <ScoreInput
               currentScore={currentScore}
               scoreRanking={currentScoreRanking}
-              playerName={playerName}
               setPlayerName={setPlayerName}
               isScoreSaved={isCurrentScoreSaved}
             />

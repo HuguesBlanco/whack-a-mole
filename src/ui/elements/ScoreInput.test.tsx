@@ -16,26 +16,27 @@ describe('ScoreInput component', () => {
     isCurrentGameScore: true,
   };
 
+  const ranking = 5;
+
   const mockSetPlayerName = vi.fn();
 
   it('should render the score, ranking, and player name input when the score is not saved', () => {
     render(
       <ScoreInput
         currentScore={mockCurrentScore}
-        scoreRanking={1}
-        playerName="Player 1"
+        scoreRanking={ranking}
         setPlayerName={mockSetPlayerName}
         isScoreSaved={false}
       />,
     );
 
-    const rankingCell = screen.getByText('1');
+    const rankingCell = screen.getByText(ranking);
     expect(rankingCell).toBeInTheDocument();
 
-    const scoreCell = screen.getByText('150');
+    const scoreCell = screen.getByText(mockCurrentScore.scoreValue.toString());
     expect(scoreCell).toBeInTheDocument();
 
-    const inputField = screen.getByDisplayValue('Player 1');
+    const inputField = screen.getByDisplayValue(mockCurrentScore.playerName);
     expect(inputField).toBeInTheDocument();
   });
 
@@ -43,8 +44,7 @@ describe('ScoreInput component', () => {
     render(
       <ScoreInput
         currentScore={mockCurrentScore}
-        scoreRanking={1}
-        playerName=""
+        scoreRanking={ranking}
         setPlayerName={mockSetPlayerName}
         isScoreSaved={false}
       />,
@@ -66,8 +66,7 @@ describe('ScoreInput component', () => {
     render(
       <ScoreInput
         currentScore={mockCurrentScore}
-        scoreRanking={1}
-        playerName=""
+        scoreRanking={ranking}
         setPlayerName={mockSetPlayerName}
         isScoreSaved={false}
       />,
@@ -85,7 +84,6 @@ describe('ScoreInput component', () => {
       <ScoreInput
         currentScore={mockCurrentScore}
         scoreRanking={1}
-        playerName={mockCurrentScore.playerName}
         setPlayerName={mockSetPlayerName}
         isScoreSaved={true}
       />,
@@ -94,7 +92,7 @@ describe('ScoreInput component', () => {
     const playerNameText = screen.getByText(mockCurrentScore.playerName);
     expect(playerNameText).toBeInTheDocument();
 
-    const inputField = screen.queryByDisplayValue('Player 1');
+    const inputField = screen.queryByDisplayValue(mockCurrentScore.playerName);
     expect(inputField).not.toBeInTheDocument();
   });
 
@@ -102,8 +100,7 @@ describe('ScoreInput component', () => {
     render(
       <ScoreInput
         currentScore={mockCurrentScore}
-        scoreRanking={2}
-        playerName="Player 2"
+        scoreRanking={ranking}
         setPlayerName={mockSetPlayerName}
         isScoreSaved={true}
       />,
