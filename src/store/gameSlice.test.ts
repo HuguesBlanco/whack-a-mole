@@ -6,14 +6,14 @@ import gameReducer, {
   startGame,
 } from './gameSlice';
 
-describe('Tests of gameSlice reducer', () => {
+describe('gameSlice reducer', () => {
   const initialState: GameState = {
     status: 'INITIAL',
     score: 0,
     timeLeftInSeconds: 120,
   };
 
-  describe('Tests of startGame', () => {
+  describe('startGame', () => {
     it('should set status to IN_PROGRESS and reset score and timer', () => {
       const initialGameState: GameState = {
         status: 'ENDED',
@@ -33,7 +33,7 @@ describe('Tests of gameSlice reducer', () => {
     });
   });
 
-  describe('Tests of decrementTimer', () => {
+  describe('decrementTimer', () => {
     it('should decrement the timer by 1 second when timeLeftInSeconds is greater than 0', () => {
       const initialGameState = {
         ...initialState,
@@ -68,7 +68,7 @@ describe('Tests of gameSlice reducer', () => {
     });
   });
 
-  describe('Tests of incrementScore', () => {
+  describe('incrementScore', () => {
     it('should increment the score by 1', () => {
       const initialGameState = {
         ...initialState,
