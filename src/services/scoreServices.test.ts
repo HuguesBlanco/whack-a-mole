@@ -1,91 +1,107 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Scores } from '../types/scoreTypes';
-import { _fetchScores, _saveScores } from './scoreServices';
+import {
+  getDefaultScores,
+  getScores,
+  LOCAL_STORAGE_SCORE_KEY,
+  saveScores,
+} from './scoreServices';
 
-describe('Score Utilities', () => {
-  const LOCAL_STORAGE_KEY = 'gameScores';
-
+describe('Scores services', () => {
   beforeEach(() => {
-    globalThis.localStorage = {
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      getItem: vi.fn(() => {}),
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      setItem: vi.fn(() => {}),
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      removeItem: vi.fn(() => {}),
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      clear: vi.fn(() => {}),
-    } as unknown as Storage;
+    vi.stubGlobal('localStorage', {
+      getItem: vi.fn(),
+      setItem: vi.fn(),
+    });
   });
 
-  describe('Tests of _fetchScores', () => {
-    it('should return an error if localStorage is empty', () => {
+  describe('getDefaultScores', () => {
+    it('should return the default list of scores', () => {
+      const expectedScores: Scores = [
+        { playerName: 'Alice', scoreValue: 10, id: 'mock01' },
+        { playerName: 'Bob', scoreValue: 5, id: 'mock02' },
+        { playerName: 'Charlie', scoreValue: 8, id: 'mock03' },
+        { playerName: 'Jane', scoreValue: 5, id: 'mock04' },
+        { playerName: 'John', scoreValue: 14, id: 'mock05' },
+      ];
+
+      const actualScores = getDefaultScores();
+
+      expect(actualScores).toEqual(expectedScores);
+    });
+  });
+
+  describe('getScores', () => {
+    it('should retrieve scores from localStorage when valid data exists', () => {
+      const mockScores: Scores = [
+        { playerName: 'Alice', scoreValue: 10, id: 'mock01' },
+      ];
+      localStorage.getItem = vi
+        .fn()
+        .mockReturnValue(JSON.stringify(mockScores));
+
+      const actualScores = getScores(LOCAL_STORAGE_SCORE_KEY);
+
+      expect(actualScores).toEqual(mockScores);
       // eslint-disable-next-line @typescript-eslint/unbound-method
-      vi.mocked(localStorage.getItem).mockReturnValue(null);
-
-      const result = _fetchScores();
-
-      expect(result).toBeInstanceOf(Error);
-      expect((result as Error).message).toBe('Score not retrieved');
+      expect(localStorage.getItem).toHaveBeenCalledWith(
+        LOCAL_STORAGE_SCORE_KEY,
+      );
     });
 
-    it('should return an error if the data in localStorage is invalid JSON', () => {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      vi.mocked(localStorage.getItem).mockReturnValue('invalid-json');
+    it('should return an error when no data is found in localStorage', () => {
+      localStorage.getItem = vi.fn().mockReturnValue(null);
 
-      const result = _fetchScores();
+      const actualResult = getScores(LOCAL_STORAGE_SCORE_KEY);
 
-      expect(result).toBeInstanceOf(Error);
-      expect((result as Error).message).toBe(
+      expect(actualResult).toBeInstanceOf(Error);
+      expect((actualResult as Error).message).toBe('Scores not retrieved');
+    });
+
+    it('should return an error when data in localStorage is invalid JSON', () => {
+      localStorage.getItem = vi.fn().mockReturnValue('invalid-json');
+
+      const actualResult = getScores(LOCAL_STORAGE_SCORE_KEY);
+
+      expect(actualResult).toBeInstanceOf(Error);
+      expect((actualResult as Error).message).toBe(
         'Failed to parse scores from localStorage.',
       );
     });
-
-    it('should return parsed scores if the data in localStorage is valid', () => {
-      const initialScores: Scores = [
-        { playerName: 'Test', scoreValue: 20, id: 'test01' },
-      ];
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      vi.mocked(localStorage.getItem).mockReturnValue(
-        JSON.stringify(initialScores),
-      );
-
-      const result = _fetchScores();
-
-      expect(result).toEqual(initialScores);
-    });
   });
 
-  describe('Tests of _saveScores', () => {
-    it('should save the provided scores to localStorage', () => {
-      const newScores: Scores = [
-        { playerName: 'Test', scoreValue: 20, id: 'test01' },
+  describe('saveScores', () => {
+    it('should save scores to localStorage and return the new scores', () => {
+      const scoresToSave: Scores = [
+        { playerName: 'Jane', scoreValue: 20, id: 'mock06' },
       ];
 
-      const result = _saveScores(newScores);
+      const actualSavedScores = saveScores(
+        LOCAL_STORAGE_SCORE_KEY,
+        scoresToSave,
+      );
 
-      expect(result).toEqual(newScores);
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(localStorage.setItem).toHaveBeenCalledWith(
-        LOCAL_STORAGE_KEY,
-        JSON.stringify(newScores),
+        LOCAL_STORAGE_SCORE_KEY,
+        JSON.stringify(scoresToSave),
       );
+      expect(actualSavedScores).toEqual(scoresToSave);
     });
 
     it('should return an error if saving to localStorage fails', () => {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      vi.mocked(localStorage.setItem).mockImplementation(() => {
-        throw new Error('Mocked error');
+      localStorage.setItem = vi.fn(() => {
+        throw new Error('Storage error');
       });
 
-      const newScores: Scores = [
-        { playerName: 'Test', scoreValue: 20, id: 'test01' },
+      const scoresToSave: Scores = [
+        { playerName: 'Jane', scoreValue: 20, id: 'mock06' },
       ];
 
-      const result = _saveScores(newScores);
+      const actualResult = saveScores(LOCAL_STORAGE_SCORE_KEY, scoresToSave);
 
-      expect(result).toBeInstanceOf(Error);
-      expect((result as Error).message).toBe(
+      expect(actualResult).toBeInstanceOf(Error);
+      expect((actualResult as Error).message).toBe(
         'Failed to save scores to localStorage.',
       );
     });

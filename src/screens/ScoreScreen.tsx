@@ -1,12 +1,21 @@
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { getScores, updateScores } from '../services/scoreServices';
+import {
+  getDefaultScores,
+  getScores,
+  LOCAL_STORAGE_SCORE_KEY,
+  saveScores,
+} from '../services/scoreServices';
 import { startGame } from '../store/gameSlice';
 import { AppDispatch, RootState } from '../store/store';
 import { Score } from '../types/scoreTypes';
 import ScoreTemplate from '../ui/templates/ScoreTemplate';
-import { sortScores } from '../utils/scoreUtils';
+import {
+  isValidScoreList,
+  removeCurrentGameScoreInformation,
+  sortScores,
+} from '../utils/scoreUtils';
 
 /**
  * Displays the final score screen at the end of the game.
@@ -16,7 +25,15 @@ function ScoreScreen(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
   const dispatch = useDispatch<AppDispatch>();
 
-  const previousScores = useMemo(getScores, []);
+  const previousScores = useMemo(() => {
+    const scoresOrError = getScores(LOCAL_STORAGE_SCORE_KEY);
+    const scores =
+      !(scoresOrError instanceof Error) && isValidScoreList(scoresOrError)
+        ? scoresOrError
+        : getDefaultScores();
+
+    return scores;
+  }, []);
   const scoreId = useMemo(() => uuidv4(), []);
   const [playerName, setPlayerName] = useState('');
   const [isScoreSaved, setIsScoreSaved] = useState(false);
@@ -36,11 +53,16 @@ function ScoreScreen(): React.JSX.Element {
   );
   const currentScoreRanking = currentScoreIndex + 1;
 
-  const saveScore = (): void => {
-    const scoresUpdatedOrError = updateScores(newScoresSorted);
+  const saveCurrentGameScore = (): void => {
+    const cleanedScores = removeCurrentGameScoreInformation(newScores);
+    const sortedScores = sortScores(cleanedScores);
+    const savedScoresOrError = saveScores(
+      LOCAL_STORAGE_SCORE_KEY,
+      sortedScores,
+    );
 
-    if (scoresUpdatedOrError instanceof Error) {
-      console.error(scoresUpdatedOrError);
+    if (savedScoresOrError instanceof Error) {
+      console.error(savedScoresOrError);
     } else {
       setIsScoreSaved(true);
     }
@@ -58,7 +80,7 @@ function ScoreScreen(): React.JSX.Element {
       playerName={playerName}
       setPlayerName={setPlayerName}
       isCurrentScoreSaved={isScoreSaved}
-      onClickSaveCurrentScore={saveScore}
+      onClickSaveCurrentScore={saveCurrentGameScore}
       onClickPlayAgain={startNewGame}
     />
   );
