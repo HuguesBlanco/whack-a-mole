@@ -1,16 +1,14 @@
 import { useMediaQuery } from 'react-responsive';
 
 /**
- * Provides screen size and orientation details.
+ * Provides screen orientation details.
  *
- * @returns An object containing screen size and orientation information.
+ * @returns An object containing screen orientation information.
  */
 export function useSreenInformation(): {
-  isSmallwidth: boolean;
   isPortrait: boolean;
 } {
-  const isSmallwidth = useMediaQuery({ maxWidth: 991 });
   const isPortrait = useMediaQuery({ query: '(orientation: portrait)' });
 
-  return { isSmallwidth, isPortrait };
+  return { isPortrait };
 }
