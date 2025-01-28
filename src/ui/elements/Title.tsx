@@ -5,7 +5,7 @@ type TitleProps = {
   /** The title text. */
   children: string;
 
-  /** Is the screen small and should a mobile version of the component be displayed. Defaults to false ? */
+  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
   isPortrait?: boolean;
 };
 
