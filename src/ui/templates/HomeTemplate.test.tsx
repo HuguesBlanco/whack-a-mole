@@ -14,7 +14,7 @@ describe('HomeTemplate component', () => {
   it('should render the Title component with the correct text', () => {
     render(<HomeTemplate onClickStart={mockOnClickStart} />);
 
-    const titleElement = screen.getByText('Whack a mole');
+    const titleElement = screen.getByText('Whack-A-Mole');
     expect(titleElement).toBeInTheDocument();
   });
 

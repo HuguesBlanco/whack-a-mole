@@ -42,7 +42,7 @@ function HomeTemplate({
           }}
         >
           <div style={{ marginBottom: '6vh' }}>
-            <Title isPortrait={isPortrait}>Whack a mole</Title>
+            <Title isPortrait={isPortrait}>Whack-A-Mole</Title>
           </div>
 
           <div style={{ marginBottom: '6vh' }}>

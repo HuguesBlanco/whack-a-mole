@@ -1,4 +1,4 @@
-# Whack a mole
+# Whack-A-Mole
 
 A simple game where you hit the moles as they pop up from their holes.
 
