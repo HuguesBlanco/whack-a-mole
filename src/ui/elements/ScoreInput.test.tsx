@@ -115,4 +115,18 @@ describe('ScoreInput component', () => {
     const cells = screen.getAllByRole('cell');
     expect(cells).toHaveLength(3);
   });
+
+  it('should autofocus the input when mounted', () => {
+    render(
+      <ScoreInput
+        currentScore={mockCurrentScore}
+        scoreRanking={ranking}
+        setPlayerName={mockSetPlayerName}
+        isScoreSaved={false}
+      />,
+    );
+
+    const inputField = screen.getByRole('textbox');
+    expect(inputField).toHaveFocus();
+  });
 });

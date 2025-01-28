@@ -84,6 +84,7 @@ function ScoreInput({
                 type="text"
                 value={currentScore.playerName}
                 onChange={handleNameChange}
+                autoFocus
               />
             )}
           </td>
