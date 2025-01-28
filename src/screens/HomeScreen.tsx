@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { useSreenInformation } from '../hooks/useScreenInformation';
 import { startGame } from '../store/gameSlice';
 import { AppDispatch } from '../store/store';
 import HomeTemplate from '../ui/templates/HomeTemplate';
@@ -9,11 +10,13 @@ import HomeTemplate from '../ui/templates/HomeTemplate';
 function HomeScreen(): React.JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
 
+  const { isPortrait } = useSreenInformation();
+
   const startMatch = (): void => {
     dispatch(startGame());
   };
 
-  return <HomeTemplate onClickStart={startMatch} />;
+  return <HomeTemplate onClickStart={startMatch} isPortrait={isPortrait} />;
 }
 
 export default HomeScreen;

@@ -7,12 +7,18 @@ import Title from '../elements/Title';
 type HomeTemplateProps = {
   /** Callback executed when the start button is clicked. */
   onClickStart: () => void;
+
+  /** Is the screen small and should a mobile version of the component be displayed. Defaults to false ? */
+  isPortrait?: boolean;
 };
 
 /**
  * Renders the initial screen layout.
  */
-function HomeTemplate({ onClickStart }: HomeTemplateProps): React.JSX.Element {
+function HomeTemplate({
+  onClickStart,
+  isPortrait = false,
+}: HomeTemplateProps): React.JSX.Element {
   return (
     <PlayingField>
       <div
@@ -26,18 +32,20 @@ function HomeTemplate({ onClickStart }: HomeTemplateProps): React.JSX.Element {
       >
         <div
           style={{
+            height: '100%',
             opacity: 1,
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'space-evenly',
             alignItems: 'center',
-            marginTop: '15vh',
           }}
         >
-          <Title>Whack a mole</Title>
-          <Button onClick={onClickStart} size="BIG">
-            Start Game
-          </Button>
+          <Title isPortrait={isPortrait}>Whack a mole</Title>
+          <div style={{ marginBottom: '10vh' }}>
+            <Button onClick={onClickStart} size="BIG">
+              Start Game
+            </Button>
+          </div>
         </div>
       </div>
     </PlayingField>

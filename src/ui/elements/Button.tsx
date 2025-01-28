@@ -35,7 +35,7 @@ function Button({
       style={{
         backgroundColor,
         color: textColor,
-        fontSize: isBigButton ? '3vw' : '1.5rem',
+        fontSize: isBigButton ? '4vw' : '1.5rem',
         fontWeight: 'bold',
         fontFamily: 'sans-serif',
         padding: '1rem 2rem',
