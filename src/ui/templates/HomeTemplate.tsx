@@ -28,6 +28,7 @@ function HomeTemplate({
           overflow: 'hidden',
           backgroundColor: COLOR_YELLOW,
           opacity: 0.8,
+          userSelect: 'none',
         }}
       >
         <div

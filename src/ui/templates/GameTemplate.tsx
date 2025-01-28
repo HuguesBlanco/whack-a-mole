@@ -39,7 +39,7 @@ function GameTemplate({
   isPortrait = false,
 }: GameTemplateProps): React.JSX.Element {
   return (
-    <div>
+    <div style={{ userSelect: 'none' }}>
       <div style={{ cursor: `url(${hammerCursor}) 35 65, pointer` }}>
         <PlayingField>
           <div style={{ height: '80vh', width: '80vw', margin: '10vh 10vw' }}>
