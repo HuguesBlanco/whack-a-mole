@@ -22,6 +22,9 @@ type GameTemplateProps = {
 
   /** The remaining time in seconds displayed to the player. */
   timeLeftInSeconds: number;
+
+  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
+  isPortrait?: boolean;
 };
 
 /**
@@ -33,59 +36,66 @@ function GameTemplate({
   onHitMole,
   scoreValue,
   timeLeftInSeconds,
+  isPortrait = false,
 }: GameTemplateProps): React.JSX.Element {
   return (
     <div>
       <div style={{ cursor: `url(${hammerCursor}) 35 65, pointer` }}>
         <PlayingField>
-          <div
-            style={{
-              width: '20vw',
-              height: '20vh',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <MetricPanel
-              label="Score"
-              value={scoreValue}
-              labelColor={COLOR_RED}
-            />
-          </div>
+          <div style={{ height: '80vh', width: '80vw', margin: '10vh 10vw' }}>
+            <div
+              style={{
+                height: '15vh',
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                }}
+              >
+                <MetricPanel
+                  label="Score"
+                  value={scoreValue}
+                  isPortrait={isPortrait}
+                  labelColor={COLOR_RED}
+                />
+              </div>
 
-          <div
-            style={{
-              width: '20vw',
-              height: '20vh',
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <MetricPanel
-              label="Time left"
-              value={timeLeftInSeconds}
-              labelColor={COLOR_PURPLE}
-            />
-          </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                }}
+              >
+                <MetricPanel
+                  label="Time left"
+                  value={timeLeftInSeconds}
+                  isPortrait={isPortrait}
+                  labelColor={COLOR_PURPLE}
+                />
+              </div>
+            </div>
 
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <MolesGrid molesData={molesData} onMoleHit={onHitMole} />
+            <div
+              style={{
+                height: isPortrait ? '60vh' : '55vh',
+                padding: isPortrait ? '0 0 5vh 0' : '5vh 15vw',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <MolesGrid
+                molesData={molesData}
+                onMoleHit={onHitMole}
+                isPortrait={isPortrait}
+              />
+            </div>
           </div>
         </PlayingField>
       </div>

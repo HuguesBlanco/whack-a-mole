@@ -8,6 +8,9 @@ type MerticPanelProps = {
   /** The value to display */
   value: number;
 
+  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
+  isPortrait?: boolean;
+
   /** The CSS color of the label*/
   labelColor?: string;
 
@@ -21,6 +24,7 @@ type MerticPanelProps = {
 function MetricPanel({
   label,
   value,
+  isPortrait = false,
   labelColor = COLOR_BLACK,
   valueColor = COLOR_BLACK,
 }: MerticPanelProps): React.JSX.Element {
@@ -37,7 +41,7 @@ function MetricPanel({
       style={{
         fontFamily: 'DynaPuff, serif',
         fontWeight: 600,
-        fontSize: '3rem',
+        fontSize: isPortrait ? '6vw' : '3vw',
         textAlign: 'center',
       }}
     >

@@ -7,6 +7,9 @@ type MolesGridProps = {
   molesData: MolesData;
   /** The callback executed when a mole is touched. */
   onMoleHit: () => void;
+
+  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
+  isPortrait?: boolean;
 };
 
 /**
@@ -15,15 +18,19 @@ type MolesGridProps = {
 function MolesGrid({
   molesData,
   onMoleHit,
+  isPortrait = false,
 }: MolesGridProps): React.JSX.Element {
   return (
     <div
       style={{
-        width: '60vw',
-        height: '60vh',
+        width: '100%',
+        height: '100%',
         display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gridTemplateRows: 'repeat(3, 20vh)',
+        gridTemplateColumns: isPortrait ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
+        gridTemplateRows: isPortrait
+          ? 'repeat(4, 25%)'
+          : 'repeat(3, 33.333333%)',
+        columnGap: '18%',
       }}
     >
       {molesData.map((moleDatum) => (

@@ -59,9 +59,13 @@ describe('MolesGrid component', () => {
     expect(mockOnMoleHit).not.toHaveBeenCalled();
   });
 
-  it('should render a grid with 3 rows and 4 columns', () => {
+  it('should render a grid with 3 rows and 4 columns on landscape orientation', () => {
     const { container } = render(
-      <MolesGrid molesData={mockMolesData} onMoleHit={vi.fn()} />,
+      <MolesGrid
+        molesData={mockMolesData}
+        onMoleHit={vi.fn()}
+        isPortrait={false}
+      />,
     );
 
     const gridDiv = container.firstChild;
@@ -69,6 +73,23 @@ describe('MolesGrid component', () => {
     expect(gridDiv).toBeInTheDocument();
     expect(gridDiv).toHaveStyle('display: grid');
     expect(gridDiv).toHaveStyle('grid-template-columns: repeat(4, 1fr)');
-    expect(gridDiv).toHaveStyle('grid-template-rows: repeat(3, 20vh)');
+    expect(gridDiv).toHaveStyle('grid-template-rows: repeat(3, 33.333333%)');
+  });
+
+  it('should render a grid with 4 rows and 3 columns on portrait orientation', () => {
+    const { container } = render(
+      <MolesGrid
+        molesData={mockMolesData}
+        onMoleHit={vi.fn()}
+        isPortrait={true}
+      />,
+    );
+
+    const gridDiv = container.firstChild;
+
+    expect(gridDiv).toBeInTheDocument();
+    expect(gridDiv).toHaveStyle('display: grid');
+    expect(gridDiv).toHaveStyle('grid-template-columns: repeat(3, 1fr)');
+    expect(gridDiv).toHaveStyle('grid-template-rows: repeat(4, 25%)');
   });
 });
