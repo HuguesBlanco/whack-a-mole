@@ -5,6 +5,7 @@ import Mole from './Mole';
 type MolesGridProps = {
   /** The data needed to create the moles grid*/
   molesData: MolesData;
+
   /** The callback executed when a mole is touched. */
   onMoleHit: () => void;
 
@@ -30,7 +31,7 @@ function MolesGrid({
         gridTemplateRows: isPortrait
           ? 'repeat(4, 25%)'
           : 'repeat(3, 33.333333%)',
-        columnGap: '18%',
+        columnGap: '15%',
       }}
     >
       {molesData.map((moleDatum) => (
