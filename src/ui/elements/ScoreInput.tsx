@@ -36,7 +36,7 @@ function ScoreInput({
   };
 
   const fontSize = isPortrait ? '3vw' : '3vh';
-  const cellPadding = isPortrait ? '2vw' : '2vh';
+  const cellHeight = '7vh';
   const borderColor = `2px solid ${COLOR_GREEN}`;
 
   return (
@@ -56,8 +56,8 @@ function ScoreInput({
             className="ranking"
             style={{
               width: '25%',
+              height: cellHeight,
               border: borderColor,
-              padding: cellPadding,
             }}
           >
             {scoreRanking}
@@ -66,8 +66,8 @@ function ScoreInput({
             className="name"
             style={{
               width: '50%',
+              height: cellHeight,
               border: borderColor,
-              padding: cellPadding,
             }}
           >
             {isScoreSaved ? (
@@ -77,6 +77,7 @@ function ScoreInput({
                 style={{
                   fontSize: fontSize,
                   width: '100%',
+                  height: '100%',
                   boxSizing: 'border-box',
                   textAlign: 'center',
                 }}
@@ -90,8 +91,8 @@ function ScoreInput({
             className="score"
             style={{
               width: '25%',
+              height: cellHeight,
               border: borderColor,
-              padding: cellPadding,
             }}
           >
             {currentScore.scoreValue}

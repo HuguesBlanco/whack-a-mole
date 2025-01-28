@@ -18,14 +18,12 @@ function LeaderBoard({
   scoresData,
   isPortrait = false,
 }: LeaderBoardProps): React.JSX.Element {
-  const cellSpaccing = isPortrait ? '2vw' : '2vh';
-
   const generateCellStyles = (scoreData: Score): React.CSSProperties => {
     const borderColor =
       scoreData.isCurrentGameScore === true ? COLOR_GREEN : COLOR_WHITE;
 
     return {
-      padding: cellSpaccing,
+      height: '7vh',
       border: `2px solid ${borderColor}`,
       textAlign: 'center',
     };
