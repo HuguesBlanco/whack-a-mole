@@ -31,15 +31,11 @@ function Title({
             -1px  1px 0 ${COLOR_WHITE},
              1px  1px 0 ${COLOR_WHITE}`,
         color: COLOR_PURPLE,
-        marginTop: '5rem',
       }}
     >
       {isPortrait
         ? words.map((word, index) => (
-            <span
-              key={index}
-              style={{ display: 'block', marginBottom: '1.5rem' }}
-            >
+            <span key={index} style={{ display: 'block', marginBottom: '5vh' }}>
               {word}
             </span>
           ))

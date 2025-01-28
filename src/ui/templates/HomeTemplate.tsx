@@ -36,12 +36,15 @@ function HomeTemplate({
             opacity: 1,
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-evenly',
+            justifyContent: 'center',
             alignItems: 'center',
           }}
         >
-          <Title isPortrait={isPortrait}>Whack a mole</Title>
-          <div style={{ marginBottom: '10vh' }}>
+          <div style={{ marginBottom: '6vh' }}>
+            <Title isPortrait={isPortrait}>Whack a mole</Title>
+          </div>
+
+          <div style={{ marginBottom: '6vh' }}>
             <Button onClick={onClickStart} size="BIG" isPortrait={isPortrait}>
               Start Game
             </Button>
