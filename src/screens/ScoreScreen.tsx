@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { useSreenInformation } from '../hooks/useScreenInformation';
 import {
   getDefaultScores,
   getScores,
@@ -24,6 +25,8 @@ import {
 function ScoreScreen(): React.JSX.Element {
   const gameState = useSelector((state: RootState) => state.game);
   const dispatch = useDispatch<AppDispatch>();
+
+  const { isPortrait } = useSreenInformation();
 
   const previousScores = useMemo(() => {
     const scoresOrError = getScores(LOCAL_STORAGE_SCORE_KEY);
@@ -81,6 +84,7 @@ function ScoreScreen(): React.JSX.Element {
       isCurrentScoreSaved={isScoreSaved}
       onClickSaveCurrentScore={saveCurrentGameScore}
       onClickPlayAgain={startNewGame}
+      isPortrait={isPortrait}
     />
   );
 }

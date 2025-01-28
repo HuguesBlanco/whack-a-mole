@@ -42,7 +42,7 @@ function HomeTemplate({
         >
           <Title isPortrait={isPortrait}>Whack a mole</Title>
           <div style={{ marginBottom: '10vh' }}>
-            <Button onClick={onClickStart} size="BIG">
+            <Button onClick={onClickStart} size="BIG" isPortrait={isPortrait}>
               Start Game
             </Button>
           </div>

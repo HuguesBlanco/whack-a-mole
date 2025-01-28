@@ -14,6 +14,9 @@ type ScoreInputProps = {
 
   /** Indicates whether the score has already been saved. */
   isScoreSaved: boolean;
+
+  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
+  isPortrait?: boolean;
 };
 
 /**
@@ -24,6 +27,7 @@ function ScoreInput({
   scoreRanking,
   setPlayerName,
   isScoreSaved,
+  isPortrait = false,
 }: ScoreInputProps): React.JSX.Element {
   const handleNameChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -31,14 +35,19 @@ function ScoreInput({
     setPlayerName(event.target.value);
   };
 
+  const fontSize = isPortrait ? '3vw' : '3vh';
+  const cellPadding = isPortrait ? '2vw' : '2vh';
+  const borderColor = `2px solid ${COLOR_GREEN}`;
+
   return (
     <table
       style={{
         width: '100%',
+        height: '100%',
         fontFamily: 'sans-serif',
-        fontSize: '2rem',
+        fontSize: fontSize,
         color: COLOR_GREEN,
-        borderSpacing: '1rem',
+        borderSpacing: isPortrait ? '1vw 2vw' : '1vh 2vh',
       }}
     >
       <tbody>
@@ -47,9 +56,8 @@ function ScoreInput({
             className="ranking"
             style={{
               width: '25%',
-              height: '2rem',
-              padding: '1rem',
-              border: `2px solid ${COLOR_GREEN}`,
+              border: borderColor,
+              padding: cellPadding,
             }}
           >
             {scoreRanking}
@@ -58,9 +66,8 @@ function ScoreInput({
             className="name"
             style={{
               width: '50%',
-              height: '2rem',
-              padding: '1rem',
-              border: `2px solid ${COLOR_GREEN}`,
+              border: borderColor,
+              padding: cellPadding,
             }}
           >
             {isScoreSaved ? (
@@ -68,9 +75,10 @@ function ScoreInput({
             ) : (
               <input
                 style={{
-                  fontSize: '2rem',
+                  fontSize: fontSize,
                   width: '100%',
                   boxSizing: 'border-box',
+                  textAlign: 'center',
                 }}
                 type="text"
                 value={currentScore.playerName}
@@ -82,9 +90,8 @@ function ScoreInput({
             className="score"
             style={{
               width: '25%',
-              height: '2rem',
-              padding: '1rem',
-              border: `2px solid ${COLOR_GREEN}`,
+              border: borderColor,
+              padding: cellPadding,
             }}
           >
             {currentScore.scoreValue}

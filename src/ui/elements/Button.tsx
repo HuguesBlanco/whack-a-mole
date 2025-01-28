@@ -16,6 +16,9 @@ type ButtonProps = {
 
   /** The size of the button. */
   size?: 'SMALL' | 'BIG';
+
+  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
+  isPortrait?: boolean;
 };
 
 /**
@@ -27,18 +30,25 @@ function Button({
   backgroundColor = COLOR_RED,
   textColor = COLOR_PURPLE,
   size = 'SMALL',
+  isPortrait = false,
 }: ButtonProps): React.JSX.Element {
-  const isBigButton = size === 'BIG';
+  const getFontSize = (): string => {
+    if (size === 'BIG') {
+      return isPortrait ? '6vw' : '6vh';
+    }
+
+    return isPortrait ? '3vw' : '3vh';
+  };
 
   return (
     <button
       style={{
         backgroundColor,
         color: textColor,
-        fontSize: isBigButton ? '4vw' : '1.5rem',
+        fontSize: getFontSize(),
         fontWeight: 'bold',
         fontFamily: 'sans-serif',
-        padding: '1rem 2rem',
+        padding: '2vh 4vw',
         border: `2px solid ${textColor}`,
         borderRadius: '20px',
         cursor: 'pointer',

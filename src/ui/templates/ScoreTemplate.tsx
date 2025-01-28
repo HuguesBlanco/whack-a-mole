@@ -33,6 +33,9 @@ type ScoreTemplateProps = {
 
   /** Callback triggered when clicking on "play again" button. */
   onClickPlayAgain: () => void;
+
+  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
+  isPortrait?: boolean;
 };
 
 /**
@@ -46,6 +49,7 @@ function ScoreTemplate({
   isCurrentScoreSaved,
   onClickSaveCurrentScore,
   onClickPlayAgain,
+  isPortrait = false,
 }: ScoreTemplateProps): React.JSX.Element {
   return (
     <PlayingField>
@@ -61,53 +65,73 @@ function ScoreTemplate({
         <div
           style={{
             opacity: 1,
-            width: '50%',
-            margin: '15vh auto 0 auto',
+            height: '80vh',
+            width: isPortrait ? '80vw' : '60vw',
+            margin: isPortrait ? '10vh 10vw' : '10vh 20vw',
           }}
         >
-          <div style={{ marginBottom: '2rem' }}>
-            <LeaderBoard scoresData={displayedScores} />
-          </div>
-
-          <div>
-            <ScoreInput
-              currentScore={currentScore}
-              scoreRanking={currentScoreRanking}
-              setPlayerName={setPlayerName}
-              isScoreSaved={isCurrentScoreSaved}
-            />
+          <div
+            style={{
+              height: '40vh',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
+            <LeaderBoard scoresData={displayedScores} isPortrait={isPortrait} />
           </div>
 
           <div
-            style={{ marginTop: '1rem', height: '12vh', textAlign: 'center' }}
+            style={{
+              height: '40vh',
+              textAlign: 'center',
+            }}
           >
-            {!isCurrentScoreSaved && (
-              <div>
-                <Button
-                  onClick={onClickSaveCurrentScore}
-                  backgroundColor={COLOR_GREEN}
-                >
-                  Save score
-                </Button>
-                <div
-                  style={{
-                    marginTop: '1rem',
-                    marginBottom: '2rem',
-                    textAlign: 'center',
-                    color: COLOR_WHITE,
-                    fontFamily: 'DynaPuff, serif',
-                  }}
-                >
-                  OR
-                </div>
-              </div>
-            )}
-          </div>
+            <div style={{ marginBottom: '3vh' }}>
+              <ScoreInput
+                currentScore={currentScore}
+                scoreRanking={currentScoreRanking}
+                setPlayerName={setPlayerName}
+                isScoreSaved={isCurrentScoreSaved}
+                isPortrait={isPortrait}
+              />
+            </div>
+            <div style={{ height: '17.4vh' }}>
+              {!isCurrentScoreSaved && (
+                <>
+                  <div style={{ marginBottom: '3vh' }}>
+                    <Button
+                      onClick={onClickSaveCurrentScore}
+                      backgroundColor={COLOR_GREEN}
+                      isPortrait={isPortrait}
+                    >
+                      Save score
+                    </Button>
+                  </div>
 
-          <div style={{ textAlign: 'center' }}>
-            <Button onClick={onClickPlayAgain} backgroundColor={COLOR_YELLOW}>
-              Play again
-            </Button>
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      color: COLOR_WHITE,
+                      fontFamily: 'DynaPuff, serif',
+                      fontSize: '3vh',
+                    }}
+                  >
+                    OR
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div>
+              <Button
+                onClick={onClickPlayAgain}
+                backgroundColor={COLOR_YELLOW}
+                isPortrait={isPortrait}
+              >
+                Play again
+              </Button>
+            </div>
           </div>
         </div>
       </div>

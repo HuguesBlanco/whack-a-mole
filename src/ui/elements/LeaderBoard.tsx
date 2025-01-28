@@ -2,39 +2,43 @@ import React from 'react';
 import { COLOR_GREEN, COLOR_WHITE } from '../../styles/colors';
 import { Score, Scores } from '../../types/scoreTypes';
 
-/**
- * Generate the CSS styles for the table cells (td).
- * @param scoreData The data of the score displayed in the cell.
- * @returns An object containing the CSS styles of the td.
- */
-function generateCellStyles(scoreData: Score): React.CSSProperties {
-  const borderColor =
-    scoreData.isCurrentGameScore === true ? COLOR_GREEN : COLOR_WHITE;
-
-  return {
-    padding: '1rem',
-    border: `2px solid ${borderColor}`,
-  };
-}
-
 /** Table displaying the scores. */
 type LeaderBoardProps = {
   /** The data of the scores displayed in the board. */
   scoresData: Scores;
+
+  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
+  isPortrait?: boolean;
 };
 
 /**
  * Table displaying the scores.
  */
-function LeaderBoard({ scoresData }: LeaderBoardProps): React.JSX.Element {
+function LeaderBoard({
+  scoresData,
+  isPortrait = false,
+}: LeaderBoardProps): React.JSX.Element {
+  const cellSpaccing = isPortrait ? '2vw' : '2vh';
+
+  const generateCellStyles = (scoreData: Score): React.CSSProperties => {
+    const borderColor =
+      scoreData.isCurrentGameScore === true ? COLOR_GREEN : COLOR_WHITE;
+
+    return {
+      padding: cellSpaccing,
+      border: `2px solid ${borderColor}`,
+      textAlign: 'center',
+    };
+  };
+
   return (
     <table
       style={{
         width: '100%',
         fontFamily: 'sans-serif',
-        fontSize: '2rem',
+        fontSize: isPortrait ? '3vw' : '3vh',
+        borderSpacing: isPortrait ? '1vw 2vw' : '1vh 2vh',
         color: COLOR_WHITE,
-        borderSpacing: '1rem',
       }}
     >
       <thead>
