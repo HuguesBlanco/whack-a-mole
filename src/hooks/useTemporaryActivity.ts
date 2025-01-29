@@ -16,12 +16,12 @@ export function useTemporaryActivity(duration: number): [boolean, () => void] {
 
   useEffect(() => {
     if (isActive) {
-      const timeout = setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         setIsActive(false);
       }, duration);
 
       return (): void => {
-        clearTimeout(timeout);
+        clearTimeout(timeoutId);
       };
     }
 
