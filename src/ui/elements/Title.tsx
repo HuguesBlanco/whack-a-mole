@@ -16,7 +16,8 @@ function Title({
   children,
   isPortrait = false,
 }: TitleProps): React.JSX.Element {
-  const words = children.split(' ');
+  const spaceOrDashRegex = /[\s-]+/;
+  const words = children.split(spaceOrDashRegex);
 
   return (
     <h1
@@ -39,7 +40,7 @@ function Title({
               {word}
             </span>
           ))
-        : words.join(' ')}
+        : children}
     </h1>
   );
 }

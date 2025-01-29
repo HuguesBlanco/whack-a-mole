@@ -42,4 +42,21 @@ describe('Title component', () => {
 
     expect(titleElement).not.toHaveTextContent(titleText);
   });
+
+  it('should render each word as a separate block when isPortrait is true, also splitting on dashes', () => {
+    const titleText = 'Game-Title';
+    render(<Title isPortrait={true}>{titleText}</Title>);
+
+    const titleElement = screen.getByRole('heading', { level: 1 });
+    expect(titleElement).toBeInTheDocument();
+
+    const words = titleText.split('-');
+    words.forEach((word) => {
+      const wordElement = screen.getByText(word);
+      expect(wordElement).toBeInTheDocument();
+      expect(wordElement).toHaveStyle({ display: 'block' });
+    });
+
+    expect(titleElement).not.toHaveTextContent(titleText);
+  });
 });
