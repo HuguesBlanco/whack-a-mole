@@ -15,4 +15,13 @@ describe('HitFeedback component', () => {
 
     expect(feedbackElement).toBeInTheDocument();
   });
+
+  it('should have the cursor hidden', () => {
+    const { container } = render(<HitFeedback />);
+
+    const feedbackContainer = container.firstChild as HTMLElement;
+
+    expect(feedbackContainer).toBeDefined();
+    expect(window.getComputedStyle(feedbackContainer).cursor).toBe('none');
+  });
 });

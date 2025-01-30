@@ -20,6 +20,7 @@ function HitFeedback(): React.JSX.Element {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        cursor: 'none',
       }}
     >
       <div
