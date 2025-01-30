@@ -1,10 +1,17 @@
 import React from 'react';
 import { COLOR_GREEN } from '../../styles/colors';
 
+type HitFeedbackProps = {
+  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
+  isPortrait?: boolean;
+};
+
 /**
  * Displays a feedback to the user when a mole is hit.
  */
-function HitFeedback(): React.JSX.Element {
+function HitFeedback({
+  isPortrait = false,
+}: HitFeedbackProps): React.JSX.Element {
   return (
     <div
       style={{
@@ -16,7 +23,7 @@ function HitFeedback(): React.JSX.Element {
         backgroundColor: COLOR_GREEN,
         opacity: 0.5,
         fontFamily: 'DynaPuff, serif',
-        fontSize: '8vw',
+        fontSize: isPortrait ? '20vw' : '20vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

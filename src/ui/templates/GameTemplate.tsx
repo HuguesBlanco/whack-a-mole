@@ -100,7 +100,7 @@ function GameTemplate({
         </PlayingField>
       </div>
 
-      {isMoleHit && <HitFeedback />}
+      {isMoleHit && <HitFeedback isPortrait={isPortrait} />}
     </div>
   );
 }
