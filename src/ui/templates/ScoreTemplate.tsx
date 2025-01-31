@@ -7,6 +7,7 @@ import {
 } from '../../styles/colors';
 
 import { Score, Scores } from '../../types/scoreTypes';
+import { hexToRgba } from '../../utils/colorsUtils';
 import Button from '../elements/Button';
 import LeaderBoard from '../elements/LeaderBoard';
 import PlayingField from '../elements/PlayingField';
@@ -58,8 +59,7 @@ function ScoreTemplate({
           width: '100%',
           height: '100%',
           overflow: 'hidden',
-          backgroundColor: COLOR_PURPLE,
-          opacity: 0.8,
+          backgroundColor: hexToRgba(COLOR_PURPLE, 0.9),
         }}
       >
         <div
