@@ -49,7 +49,7 @@ function Button({
         fontWeight: 'bold',
         fontFamily: 'sans-serif',
         padding: '2vh 4vw',
-        border: `2px solid ${textColor}`,
+        border: `1px solid ${textColor}`,
         borderRadius: '20px',
         cursor: 'pointer',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',

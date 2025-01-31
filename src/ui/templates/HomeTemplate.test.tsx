@@ -2,6 +2,7 @@ import '@testing-library/jest-dom/vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { COLOR_YELLOW } from '../../styles/colors';
+import { hexToRgba } from '../../utils/colorsUtils';
 import HomeTemplate from './HomeTemplate';
 
 describe('HomeTemplate component', () => {
@@ -36,8 +37,7 @@ describe('HomeTemplate component', () => {
     const overlayDiv = container.firstChild?.firstChild;
 
     expect(overlayDiv).toHaveStyle({
-      backgroundColor: COLOR_YELLOW,
-      opacity: '0.8',
+      backgroundColor: hexToRgba(COLOR_YELLOW, 0.8),
     });
   });
 });

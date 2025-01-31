@@ -1,5 +1,6 @@
 import React from 'react';
-import { COLOR_YELLOW } from '../../styles/colors';
+import { COLOR_WHITE, COLOR_YELLOW } from '../../styles/colors';
+import { hexToRgba } from '../../utils/colorsUtils';
 import Button from '../elements/Button';
 import PlayingField from '../elements/PlayingField';
 import Title from '../elements/Title';
@@ -26,30 +27,27 @@ function HomeTemplate({
           width: '100%',
           height: '100%',
           overflow: 'hidden',
-          backgroundColor: COLOR_YELLOW,
-          opacity: 0.8,
+          backgroundColor: hexToRgba(COLOR_YELLOW, 0.8),
           userSelect: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <div
-          style={{
-            height: '100%',
-            opacity: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <div style={{ marginBottom: '6vh' }}>
-            <Title isPortrait={isPortrait}>Whack-A-Mole</Title>
-          </div>
+        <div style={{ marginBottom: '6vh' }}>
+          <Title isPortrait={isPortrait}>Whack-A-Mole</Title>
+        </div>
 
-          <div style={{ marginBottom: '6vh' }}>
-            <Button onClick={onClickStart} size="BIG" isPortrait={isPortrait}>
-              Start Game
-            </Button>
-          </div>
+        <div style={{ marginBottom: '6vh' }}>
+          <Button
+            onClick={onClickStart}
+            size="BIG"
+            isPortrait={isPortrait}
+            textColor={COLOR_WHITE}
+          >
+            Start Game
+          </Button>
         </div>
       </div>
     </PlayingField>
