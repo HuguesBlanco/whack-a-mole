@@ -89,6 +89,7 @@ function ScoreTemplate({
               display: 'flex',
               flexDirection: isPortrait ? 'column' : 'row',
               justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <div
