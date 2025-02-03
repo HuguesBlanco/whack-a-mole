@@ -56,74 +56,93 @@ function ScoreTemplate({
     <PlayingField>
       <div
         style={{
-          width: '100%',
-          height: '100%',
-          overflow: 'hidden',
-          backgroundColor: hexToRgba(COLOR_PURPLE, 0.9),
+          height: '85vh',
+          width: isPortrait ? '80vw' : '60vw',
+          padding: isPortrait ? '10vh 10vw 5vh 10vw' : '10vh 20vw 5vh 20vw',
+          backgroundColor: hexToRgba(COLOR_PURPLE, 0.8),
         }}
       >
+        {/* Upper part - start */}
         <div
           style={{
-            opacity: 1,
-            height: '80vh',
-            width: isPortrait ? '80vw' : '60vw',
-            margin: isPortrait ? '10vh 10vw' : '10vh 20vw',
+            height: '30vh',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
           }}
         >
+          {/* Current score - start */}
+          <div style={{ marginBottom: '5vh' }}>
+            <ScoreInput
+              currentScore={currentScore}
+              scoreRanking={currentScoreRanking}
+              setPlayerName={setPlayerName}
+              isScoreSaved={isCurrentScoreSaved}
+              isPortrait={isPortrait}
+            />
+          </div>
+          {/* Current score - end */}
+
+          {/* Buttons - start */}
           <div
             style={{
-              height: '40vh',
               display: 'flex',
-              flexDirection: 'column',
+              flexDirection: isPortrait ? 'column' : 'row',
               justifyContent: 'center',
             }}
           >
-            <LeaderBoard scoresData={displayedScores} isPortrait={isPortrait} />
-          </div>
-
-          <div
-            style={{
-              height: '40vh',
-              textAlign: 'center',
-            }}
-          >
-            <div style={{ marginBottom: '3vh' }}>
-              <ScoreInput
-                currentScore={currentScore}
-                scoreRanking={currentScoreRanking}
-                setPlayerName={setPlayerName}
-                isScoreSaved={isCurrentScoreSaved}
-                isPortrait={isPortrait}
-              />
-            </div>
-            <div style={{ height: '17.4vh' }}>
-              {!isCurrentScoreSaved && (
-                <>
-                  <div style={{ marginBottom: '3vh' }}>
-                    <Button
-                      onClick={onClickSaveCurrentScore}
-                      backgroundColor={COLOR_GREEN}
-                      isPortrait={isPortrait}
-                    >
-                      Save score
-                    </Button>
-                  </div>
-
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      color: COLOR_WHITE,
-                      fontFamily: 'DynaPuff, serif',
-                      fontSize: '3vh',
-                    }}
-                  >
-                    OR
-                  </div>
-                </>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {isCurrentScoreSaved ? (
+                <span
+                  style={{
+                    fontFamily: 'sans-serif',
+                    fontSize: isPortrait ? '3vw' : '2vh',
+                    color: COLOR_YELLOW,
+                    padding: '1vh 2vw',
+                  }}
+                >
+                  Score saved
+                </span>
+              ) : (
+                <Button
+                  onClick={onClickSaveCurrentScore}
+                  backgroundColor={COLOR_GREEN}
+                  isPortrait={isPortrait}
+                >
+                  Save score
+                </Button>
               )}
             </div>
 
-            <div>
+            <div
+              style={{
+                width: '8vh',
+                height: '3vh',
+                fontFamily: 'DynaPuff, serif',
+                fontSize: isPortrait ? '3vw' : '2vh',
+                color: COLOR_WHITE,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: isPortrait ? '2vh auto' : 0,
+              }}
+            >
+              {!isCurrentScoreSaved && 'OR'}
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
               <Button
                 onClick={onClickPlayAgain}
                 backgroundColor={COLOR_YELLOW}
@@ -133,7 +152,27 @@ function ScoreTemplate({
               </Button>
             </div>
           </div>
+          {/* Buttons - end */}
         </div>
+        {/* Upper part - end */}
+
+        {/* Lower part - start */}
+        <div
+          style={{
+            height: '55vh',
+            width: isPortrait ? '80vw' : '40vw',
+            margin: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <LeaderBoard
+            scoresData={displayedScores}
+            isCurrentScoreSaved={isCurrentScoreSaved}
+          />
+        </div>
+        {/* Lower part - end */}
       </div>
     </PlayingField>
   );

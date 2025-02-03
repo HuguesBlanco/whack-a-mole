@@ -56,3 +56,30 @@ export function sortScores(scores: Scores): Scores {
     return a.playerName.localeCompare(b.playerName);
   });
 }
+
+/**
+ * Returns the ordinal suffix for a given number (e.g., 'st' for 1, 'nd' for 2).
+ * @param number The number to determine the ordinal suffix for.
+ * @returns The corresponding ordinal suffix ('st', 'nd', 'rd', or 'th'), or an empty string for non-positive numbers.
+ */
+export function getOrdinalSuffix(number: number): string {
+  if (number <= 0) return '';
+
+  const lastTwoDigits = number % 100;
+  const lastDigit = number % 10;
+
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 13) {
+    return 'th';
+  }
+
+  switch (lastDigit) {
+    case 1:
+      return 'st';
+    case 2:
+      return 'nd';
+    case 3:
+      return 'rd';
+    default:
+      return 'th';
+  }
+}

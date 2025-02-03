@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { COLOR_GREEN } from '../../styles/colors';
+import { COLOR_GREEN, COLOR_WHITE, COLOR_YELLOW } from '../../styles/colors';
 import { Scores } from '../../types/scoreTypes';
 import LeaderBoard from './LeaderBoard';
 
@@ -31,51 +31,61 @@ describe('LeaderBoard component', () => {
     },
   ];
 
-  it('should render the leaderboard table', () => {
+  it('should render the leaderboard with the correct number of players', () => {
     render(<LeaderBoard scoresData={mockScoresData} />);
 
-    const table = screen.getByRole('table');
-    expect(table).toBeInTheDocument();
+    const playerElements = screen.getAllByText(/Player \d/);
+    expect(playerElements).toHaveLength(mockScoresData.length);
   });
 
-  it('should display the correct table headers', () => {
+  it('should display the correct ranking for each player', () => {
     render(<LeaderBoard scoresData={mockScoresData} />);
 
-    const headers = screen.getAllByRole('columnheader');
-    expect(headers).toHaveLength(3);
-    expect(headers[0]).toHaveTextContent('Ranking');
-    expect(headers[1]).toHaveTextContent('Name');
-    expect(headers[2]).toHaveTextContent('Score');
-  });
-
-  it('should render the correct number of rows based on the scoresData', () => {
-    render(<LeaderBoard scoresData={mockScoresData} />);
-
-    const rows = screen.getAllByRole('row');
-    expect(rows).toHaveLength(mockScoresData.length + 1); // Includes the header row
-  });
-
-  it('should display the correct data for each row', () => {
-    render(<LeaderBoard scoresData={mockScoresData} />);
-
-    mockScoresData.forEach((scoreData, index) => {
-      const rankingCell = screen.getByText((index + 1).toString());
-      const nameCell = screen.getByText(scoreData.playerName);
-      const scoreCell = screen.getByText(scoreData.scoreValue.toString());
-
-      expect(rankingCell).toBeInTheDocument();
-      expect(nameCell).toBeInTheDocument();
-      expect(scoreCell).toBeInTheDocument();
+    mockScoresData.forEach((_, index) => {
+      const rankingText = (index + 1).toString();
+      expect(screen.getByText(rankingText)).toBeInTheDocument();
     });
   });
 
-  it('should apply a different border color for the current game score', () => {
+  it('should display the correct player names and scores', () => {
     render(<LeaderBoard scoresData={mockScoresData} />);
 
-    const currentGameRow = screen.getByText('Player 2'); // Player 2 is the player with `isCurrentGameScore: true` in mockScoresData
-    expect(currentGameRow).toBeInTheDocument();
+    mockScoresData.forEach((scoreData) => {
+      expect(screen.getByText(scoreData.playerName)).toBeInTheDocument();
+      expect(
+        screen.getByText(scoreData.scoreValue.toString()),
+      ).toBeInTheDocument();
+    });
+  });
 
-    const parentCell = currentGameRow.closest('td');
-    expect(parentCell).toHaveStyle(`border: 2px solid ${COLOR_GREEN}`);
+  it('should apply a green background to the current game score when not saved', () => {
+    render(
+      <LeaderBoard scoresData={mockScoresData} isCurrentScoreSaved={false} />,
+    );
+
+    const currentGameElement = screen.getByText('Player 2').parentElement;
+    expect(currentGameElement).toHaveStyle(`background-color: ${COLOR_GREEN}`);
+  });
+
+  it('should apply a yellow background to the current game score when saved', () => {
+    render(
+      <LeaderBoard scoresData={mockScoresData} isCurrentScoreSaved={true} />,
+    );
+
+    const currentGameElement = screen.getByText('Player 2').parentElement;
+    expect(currentGameElement).toHaveStyle(`background-color: ${COLOR_YELLOW}`);
+  });
+
+  it('should apply a white background to non-current game scores', () => {
+    render(<LeaderBoard scoresData={mockScoresData} />);
+
+    mockScoresData.forEach((scoreData) => {
+      if (scoreData.isCurrentGameScore !== true) {
+        const playerElement = screen.getByText(
+          scoreData.playerName,
+        ).parentElement;
+        expect(playerElement).toHaveStyle(`background-color: ${COLOR_WHITE}`);
+      }
+    });
   });
 });

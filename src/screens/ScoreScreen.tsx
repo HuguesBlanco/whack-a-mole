@@ -49,7 +49,7 @@ function ScoreScreen(): React.JSX.Element {
   const newScores = [...previousScores, currentScore];
   const newScoresSorted = sortScores(newScores);
 
-  const topThreeScores = newScoresSorted.slice(0, 3);
+  const topScores = newScoresSorted.slice(0, 10);
 
   const currentScoreIndex = newScoresSorted.findIndex(
     (score) => score.isCurrentGameScore === true,
@@ -77,7 +77,7 @@ function ScoreScreen(): React.JSX.Element {
 
   return (
     <ScoreTemplate
-      displayedScores={topThreeScores}
+      displayedScores={topScores}
       currentScore={currentScore}
       currentScoreRanking={currentScoreRanking}
       setPlayerName={setPlayerName}

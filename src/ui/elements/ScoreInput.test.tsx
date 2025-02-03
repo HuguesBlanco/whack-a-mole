@@ -17,10 +17,9 @@ describe('ScoreInput component', () => {
   };
 
   const ranking = 5;
-
   const mockSetPlayerName = vi.fn();
 
-  it('should render the score, ranking, and player name input when the score is not saved', () => {
+  it('should render the ranking, score, and player name input when the score is not saved', () => {
     render(
       <ScoreInput
         currentScore={mockCurrentScore}
@@ -30,11 +29,11 @@ describe('ScoreInput component', () => {
       />,
     );
 
-    const rankingCell = screen.getByText(ranking);
-    expect(rankingCell).toBeInTheDocument();
+    expect(screen.getByText(ranking)).toBeInTheDocument();
 
-    const scoreCell = screen.getByText(mockCurrentScore.scoreValue.toString());
-    expect(scoreCell).toBeInTheDocument();
+    expect(
+      screen.getByText(mockCurrentScore.scoreValue.toString()),
+    ).toBeInTheDocument();
 
     const inputField = screen.getByDisplayValue(mockCurrentScore.playerName);
     expect(inputField).toBeInTheDocument();
@@ -83,37 +82,17 @@ describe('ScoreInput component', () => {
     render(
       <ScoreInput
         currentScore={mockCurrentScore}
-        scoreRanking={1}
-        setPlayerName={mockSetPlayerName}
-        isScoreSaved={true}
-      />,
-    );
-
-    const playerNameText = screen.getByText(mockCurrentScore.playerName);
-    expect(playerNameText).toBeInTheDocument();
-
-    const inputField = screen.queryByDisplayValue(mockCurrentScore.playerName);
-    expect(inputField).not.toBeInTheDocument();
-  });
-
-  it('should render the table with the correct structure', () => {
-    render(
-      <ScoreInput
-        currentScore={mockCurrentScore}
         scoreRanking={ranking}
         setPlayerName={mockSetPlayerName}
         isScoreSaved={true}
       />,
     );
 
-    const table = screen.getByRole('table');
-    expect(table).toBeInTheDocument();
+    expect(screen.getByText(mockCurrentScore.playerName)).toBeInTheDocument();
 
-    const rows = screen.getAllByRole('row');
-    expect(rows).toHaveLength(1);
-
-    const cells = screen.getAllByRole('cell');
-    expect(cells).toHaveLength(3);
+    expect(
+      screen.queryByDisplayValue(mockCurrentScore.playerName),
+    ).not.toBeInTheDocument();
   });
 
   it('should autofocus the input when mounted', () => {

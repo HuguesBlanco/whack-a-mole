@@ -1,14 +1,20 @@
 import React from 'react';
-import { COLOR_GREEN, COLOR_WHITE } from '../../styles/colors';
+import {
+  COLOR_GREEN,
+  COLOR_PURPLE,
+  COLOR_WHITE,
+  COLOR_YELLOW,
+} from '../../styles/colors';
 import { Score, Scores } from '../../types/scoreTypes';
+import { getOrdinalSuffix } from '../../utils/scoreUtils';
 
 /** Table displaying the scores. */
 type LeaderBoardProps = {
   /** The data of the scores displayed in the board. */
   scoresData: Scores;
 
-  /** Is the screen portrait oriented and should a specific version of the component be displayed. Defaults to false ? */
-  isPortrait?: boolean;
+  /** Indicates whether the current score has already been saved. Defaults to false. */
+  isCurrentScoreSaved?: boolean;
 };
 
 /**
@@ -16,54 +22,69 @@ type LeaderBoardProps = {
  */
 function LeaderBoard({
   scoresData,
-  isPortrait = false,
+  isCurrentScoreSaved = false,
 }: LeaderBoardProps): React.JSX.Element {
-  const generateCellStyles = (scoreData: Score): React.CSSProperties => {
-    const borderColor =
-      scoreData.isCurrentGameScore === true ? COLOR_GREEN : COLOR_WHITE;
+  const getRowBackgroundColor = (scoreData: Score): string => {
+    if (scoreData.isCurrentGameScore === true) {
+      return isCurrentScoreSaved ? COLOR_YELLOW : COLOR_GREEN;
+    }
 
-    return {
-      height: '7vh',
-      border: `2px solid ${borderColor}`,
-      textAlign: 'center',
-    };
+    return COLOR_WHITE;
   };
 
   return (
-    <table
-      style={{
-        width: '100%',
-        fontFamily: 'sans-serif',
-        fontSize: isPortrait ? '3vw' : '3vh',
-        borderSpacing: isPortrait ? '1vw 2vw' : '1vh 2vh',
-        color: COLOR_WHITE,
-      }}
-    >
-      <thead>
-        <tr>
-          <th style={{ width: '25%', fontFamily: 'DynaPuff, serif' }}>
-            Ranking
-          </th>
-          <th style={{ width: '50%', fontFamily: 'DynaPuff, serif' }}>Name</th>
-          <th style={{ width: '25%', fontFamily: 'DynaPuff, serif' }}>Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        {scoresData.map((scoreData, index) => (
-          <tr key={scoreData.id}>
-            <td className="ranking" style={generateCellStyles(scoreData)}>
-              {index + 1}
-            </td>
-            <td className="name" style={generateCellStyles(scoreData)}>
-              {scoreData.playerName}
-            </td>
-            <td className="score" style={generateCellStyles(scoreData)}>
-              {scoreData.scoreValue}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div>
+      {scoresData.map((scoreDatum, index) => {
+        const rank = index + 1;
+        const isLastElement = index + 1 === scoresData.length;
+
+        return (
+          <div
+            key={scoreDatum.id}
+            style={{
+              marginBottom: isLastElement ? 0 : '0.5vh',
+            }}
+          >
+            <div
+              style={{
+                fontFamily: 'sans-serif',
+                fontSize: '1.5vh',
+                color: COLOR_PURPLE,
+                backgroundColor: getRowBackgroundColor(scoreDatum),
+                padding: '1.4vh 0 1.2vh 0',
+                borderRadius: '1vh',
+                display: 'grid',
+                gridTemplateColumns: '1fr 2fr 1fr',
+                textAlign: 'center',
+              }}
+            >
+              <div>
+                <span style={{ fontWeight: 'bold' }}>{rank}</span>
+                <sup
+                  style={{ fontFamily: 'DynaPuff, serif', fontSize: '0.8vh' }}
+                >
+                  {' '}
+                  {getOrdinalSuffix(rank)}
+                </sup>
+              </div>
+
+              <div>{scoreDatum.playerName}</div>
+
+              <div>
+                <span style={{ fontWeight: 'bold' }}>
+                  {scoreDatum.scoreValue}
+                </span>{' '}
+                <span
+                  style={{ fontFamily: 'DynaPuff, serif', fontSize: '0.8vh' }}
+                >
+                  pts
+                </span>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 }
 

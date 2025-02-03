@@ -37,7 +37,7 @@ function Button({
       return isPortrait ? '6vw' : '6vh';
     }
 
-    return isPortrait ? '3vw' : '3vh';
+    return isPortrait ? '3vw' : '2vh';
   };
 
   return (
@@ -48,7 +48,7 @@ function Button({
         fontSize: getFontSize(),
         fontWeight: 'bold',
         fontFamily: 'sans-serif',
-        padding: '2vh 4vw',
+        padding: size === 'BIG' ? '2vh 4vw' : '1vh 2vw',
         border: `1px solid ${textColor}`,
         borderRadius: '20px',
         cursor: 'pointer',

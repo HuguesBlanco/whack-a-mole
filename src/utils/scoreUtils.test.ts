@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Score, Scores } from '../types/scoreTypes';
 import {
+  getOrdinalSuffix,
   isValidScore,
   isValidScoreList,
   removeCurrentGameScoreInformation,
@@ -124,6 +125,45 @@ describe('Score utilitary functions', () => {
       ];
       const actualScores = sortScores(initialScores);
       expect(actualScores).toEqual(expectedScores);
+    });
+  });
+
+  describe('getOrdinalSuffix', () => {
+    it('should return correct ordinal suffix for general cases', () => {
+      const cases: [number, string][] = [
+        [1, 'st'],
+        [2, 'nd'],
+        [3, 'rd'],
+        [4, 'th'],
+        [11, 'th'],
+        [12, 'th'],
+        [13, 'th'],
+        [21, 'st'],
+        [22, 'nd'],
+        [23, 'rd'],
+        [24, 'th'],
+        [100, 'th'],
+        [101, 'st'],
+        [102, 'nd'],
+        [103, 'rd'],
+        [111, 'th'],
+        [112, 'th'],
+        [113, 'th'],
+        [200, 'th'],
+        [201, 'st'],
+        [202, 'nd'],
+        [203, 'rd'],
+      ];
+
+      cases.forEach(([number, expectedSuffix]) => {
+        expect(getOrdinalSuffix(number)).toBe(expectedSuffix);
+      });
+    });
+
+    it('should return an empty string for non-positive numbers', () => {
+      [-1, 0, -10].forEach((num) => {
+        expect(getOrdinalSuffix(num)).toBe('');
+      });
     });
   });
 });

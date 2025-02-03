@@ -1,6 +1,7 @@
 import React from 'react';
-import { COLOR_GREEN } from '../../styles/colors';
+import { COLOR_GREEN, COLOR_WHITE } from '../../styles/colors';
 import { Score } from '../../types/scoreTypes';
+import { getOrdinalSuffix } from '../../utils/scoreUtils';
 
 type ScoreInputProps = {
   /** The score of the game that just ended. */
@@ -35,72 +36,125 @@ function ScoreInput({
     setPlayerName(event.target.value);
   };
 
-  const fontSize = isPortrait ? '3vw' : '3vh';
-  const cellHeight = '7vh';
-  const borderColor = `2px solid ${COLOR_GREEN}`;
-
   return (
-    <table
-      style={{
-        width: '100%',
-        height: '100%',
-        fontFamily: 'sans-serif',
-        fontSize: fontSize,
-        color: COLOR_GREEN,
-        borderSpacing: isPortrait ? '1vw 2vw' : '1vh 2vh',
-      }}
-    >
-      <tbody>
-        <tr key={currentScore.id}>
-          <td
-            className="ranking"
+    <div>
+      {/* Title - start */}
+      <div
+        style={{
+          fontFamily: 'DynaPuff, serif',
+          fontSize: isPortrait ? '6vw' : '5vh',
+          color: COLOR_WHITE,
+          textAlign: 'center',
+          marginBottom: '3vh',
+        }}
+      >
+        Your Score
+      </div>
+      {/* Title - end */}
+
+      {/* Score line - start */}
+      <div
+        style={{
+          fontFamily: 'sans-serif',
+          color: COLOR_WHITE,
+          textAlign: 'center',
+          display: 'flex',
+          alignItems: 'flex-end',
+        }}
+      >
+        {/* Rank - start */}
+        <div
+          style={{
+            fontSize: isPortrait ? '8vw' : '8vh',
+            flex: 1,
+          }}
+        >
+          <span
             style={{
-              width: '25%',
-              height: cellHeight,
-              border: borderColor,
+              fontWeight: 'bold',
             }}
           >
             {scoreRanking}
-          </td>
-          <td
-            className="name"
+          </span>
+          <sup
             style={{
-              width: '50%',
-              height: cellHeight,
-              border: borderColor,
+              fontFamily: 'DynaPuff, serif',
+              fontSize: isPortrait ? '2vw' : '2vh',
             }}
           >
-            {isScoreSaved ? (
-              currentScore.playerName
-            ) : (
-              <input
-                style={{
-                  fontSize: fontSize,
-                  width: '100%',
-                  height: '100%',
-                  boxSizing: 'border-box',
-                  textAlign: 'center',
-                }}
-                type="text"
-                value={currentScore.playerName}
-                onChange={handleNameChange}
-                autoFocus
-              />
-            )}
-          </td>
-          <td
-            className="score"
+            {getOrdinalSuffix(scoreRanking)}
+          </sup>
+        </div>
+        {/* Rank - end */}
+
+        {/* Name - start */}
+        <div
+          style={{
+            flex: 2,
+            height: isPortrait ? '6vw' : '6vh',
+            fontSize: isPortrait ? '3vw' : '3vh',
+            borderRadius: '3vh',
+            marginBottom: isPortrait ? '1vw' : '1.4vh',
+          }}
+        >
+          {isScoreSaved ? (
+            <div
+              style={{
+                width: '100%',
+                height: '100%',
+                fontFamily: 'sans-serif',
+                color: COLOR_WHITE,
+                borderBottom: `2px solid ${COLOR_WHITE}`,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {currentScore.playerName}
+            </div>
+          ) : (
+            <input
+              placeholder="Enter your name"
+              style={{
+                width: '100%',
+                height: '100%',
+                fontSize: isPortrait ? '3vw' : '3vh',
+                color: COLOR_GREEN,
+                backgroundColor: COLOR_WHITE,
+                border: 'none',
+                borderRadius: '3vh',
+                textAlign: 'center',
+              }}
+              type="text"
+              value={currentScore.playerName}
+              onChange={handleNameChange}
+              autoFocus
+            />
+          )}
+        </div>
+        {/* Name - end */}
+
+        {/* Points - start */}
+        <div
+          style={{
+            fontSize: isPortrait ? '8vw' : '8vh',
+            flex: 1,
+          }}
+        >
+          {currentScore.scoreValue}
+          <span
             style={{
-              width: '25%',
-              height: cellHeight,
-              border: borderColor,
+              fontFamily: 'DynaPuff, serif',
+              fontSize: isPortrait ? '2vw' : '2vh',
             }}
           >
-            {currentScore.scoreValue}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            pts
+          </span>
+        </div>
+        {/* Points - end */}
+      </div>
+      {/* Score line - end*/}
+    </div>
   );
 }
 

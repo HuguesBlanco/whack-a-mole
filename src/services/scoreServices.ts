@@ -16,6 +16,11 @@ export function getDefaultScores(): Scores {
     { playerName: 'Charlie', scoreValue: 8, id: 'mock03' },
     { playerName: 'Jane', scoreValue: 5, id: 'mock04' },
     { playerName: 'John', scoreValue: 14, id: 'mock05' },
+    { playerName: 'Lisa', scoreValue: 10, id: 'mock06' },
+    { playerName: 'Tom', scoreValue: 5, id: 'mock07' },
+    { playerName: 'Sam', scoreValue: 8, id: 'mock08' },
+    { playerName: 'Bridget', scoreValue: 5, id: 'mock09' },
+    { playerName: 'Lucy', scoreValue: 14, id: 'mock10' },
   ];
 }
 
